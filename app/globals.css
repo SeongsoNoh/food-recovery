@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  a {
+    @apply text-green-500;
+  }
+}
+
+@layer components {
+  .primary-btn {
+    @apply w-full bg-green-400 text-white font-medium rounded-md text-center hover:bg-green-500 transition-colors;
+  }
+}
