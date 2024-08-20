@@ -6,7 +6,7 @@ export default function Home() {
       <div className="my-auto flex flex-col items-center gap-2 *:font-medium">
         <span className="text-9xl">🍽️</span>
         <h1 className="text-4xl ">Food-Re:covery</h1>
-        <h2 className="text-2xl">푸드리커버리에 오신 걸 환영합니다!</h2>
+        <h2 className="text-2xl">푸드리코베리에 오신 걸 환영합니다!</h2>
       </div>
       <div className="flex flex-col items-center gap-3 w-full">
         <Link href="/create-account" className="primary-btn py-2.5 text-lg">
