@@ -1,12 +1,20 @@
 import type { Config } from "tailwindcss";
 
-const config: Config = {
+const colors = require("tailwindcss/colors");
+
+module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        "main-color": "#f6fbf4",
+        "main-button": "#0B9563",
+      },
+    },
+  },
   plugins: [],
 };
-export default config;

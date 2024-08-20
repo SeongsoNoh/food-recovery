@@ -4,12 +4,12 @@
 
 @layer base {
   a {
-    @apply text-green-500;
+    @apply text-main-button;
   }
 }
 
 @layer components {
   .primary-btn {
-    @apply w-full bg-green-400 text-white font-medium rounded-md text-center hover:bg-green-500 transition-colors;
+    @apply w-full bg-main-button text-white font-medium rounded-md text-center hover:bg-main-button transition-colors;
   }
 }
