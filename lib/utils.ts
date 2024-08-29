@@ -5,7 +5,9 @@ export function formatToTimeAgo(date: string): string {
   const diff = Math.round((time - now) / dayInMs);
 
   const formatter = new Intl.RelativeTimeFormat("ko");
-
+  if (diff === 0) {
+    return "오늘";
+  }
   return formatter.format(diff, "days");
 }
 
