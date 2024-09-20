@@ -1,6 +1,6 @@
 "use client";
-import { HandThumbUpIcon } from "@heroicons/react/24/solid";
-import { HandThumbUpIcon as OutlineHandThumbUpIcon } from "@heroicons/react/24/outline";
+import { HandThumbUpIcon } from "@heroicons/react/20/solid";
+// import { HandThumbUpIcon as OutlineHandThumbUpIcon } from "@heroicons/react/24/outline";
 import { useOptimistic } from "react";
 import { dislikePost, likePost } from "@/app/posts/[id]/action";
 
@@ -36,22 +36,18 @@ export default function LikeButton({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 text-black text-sm border border-main-button rounded-full p-2  transition-colors ${
+      className={`flex items-center gap-2 text-black text-sm border border-main-button rounded-full px-3 py-1.5  transition-colors ${
         isLiked
           ? "bg-main-button text-main-color border-main-button"
           : "hover:bg-sub-color"
       }`}
     >
       {state.isLiked ? (
-        <HandThumbUpIcon className="size-5" />
+        <HandThumbUpIcon className="size-4" />
       ) : (
-        <OutlineHandThumbUpIcon className="size-5" />
+        <HandThumbUpIcon className="size-4" />
       )}
-      {state.isLiked ? (
-        <span>{state.likeCount}</span>
-      ) : (
-        <span>공감하기 ({state.likeCount})</span>
-      )}
+      <span>{state.likeCount}</span>
     </button>
   );
 }

@@ -15,6 +15,7 @@ module.exports = {
         "main-button": "#0B9563",
         "sub-color": "#DDF7E5",
         "sub-button": "#FFDCD1",
+        "bottom-border-color": "#EEEEEE",
       },
     },
   },

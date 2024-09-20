@@ -21,6 +21,9 @@ async function getPosts() {
         },
       },
     },
+    orderBy: {
+      created_at: "desc",
+    },
   });
   return posts;
 }
