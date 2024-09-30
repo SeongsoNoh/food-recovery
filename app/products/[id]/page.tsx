@@ -5,8 +5,9 @@ import { formatToWon } from "@/lib/utils";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+
+import { unstable_cache as nextCache, revalidateTag } from "next/cache";
 
 async function getIsOwner(userId: number) {
   const session = await getSession();
@@ -17,6 +18,7 @@ async function getIsOwner(userId: number) {
 }
 
 async function getProduct(id: number) {
+  console.log("product");
   const product = await db.product.findUnique({
     where: {
       id,
@@ -30,8 +32,36 @@ async function getProduct(id: number) {
       },
     },
   });
-  console.log(product);
   return product;
+}
+
+const getCachedProduct = nextCache(getProduct, ["product-detail"], {
+  tags: ["product-detail"],
+});
+
+async function getProductTitle(id: number) {
+  console.log("title");
+  const product = await db.product.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      title: true,
+    },
+  });
+  return product;
+}
+
+const getCachedProductTitle = nextCache(getProductTitle, ["product-title"], {
+  tags: ["product-title", "product-detail"],
+});
+
+// 반드시 이름이 generateMetadata여야 함. 예약어
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const product = await getCachedProductTitle(Number(params.id));
+  return {
+    title: product?.title,
+  };
 }
 
 export default async function ProductDetail({
@@ -39,36 +69,70 @@ export default async function ProductDetail({
 }: {
   params: { id: string };
 }) {
+  // id에 문자열 string이 들어오는 경우 오류처리
   const id = Number(params.id);
   if (isNaN(id)) {
     return notFound();
   }
-  const product = await getProduct(id);
+  const product = await getCachedProduct(id);
+  // db에 없는 product id이면 notFound 페이지 보여주기
   if (!product) {
     return notFound();
   }
+  // 소유자인지 확인
   const isOwner = await getIsOwner(product.userId);
 
   const createChatRoom = async () => {
     "use server";
+    let room;
     const session = await getSession();
-    const room = await db.chatRoom.create({
-      data: {
+    // 이미 chatroom이 존재하는지 확인
+    const roomsAlreadyExist = await db.chatRoom.findMany({
+      where: {
+        productId: product.id,
         users: {
-          connect: [
-            {
-              id: product.userId,
-            },
-            {
-              id: session.id,
-            },
-          ],
+          some: {
+            id: session.id,
+          },
         },
       },
       select: {
         id: true,
       },
     });
+    if (roomsAlreadyExist) {
+      room = roomsAlreadyExist[0];
+      console.log("AlreadyExistRoom", room);
+    }
+    if (!room) {
+      // chatroom 생성
+      room = await db.chatRoom.create({
+        data: {
+          users: {
+            // users relationship 연결
+            connect: [
+              {
+                // 판매자 id
+                id: product.userId,
+              },
+              {
+                // 로그인 유저 id
+                id: session.id,
+              },
+            ],
+          },
+          product: {
+            connect: {
+              id: product.id,
+            },
+          },
+        },
+        // 반환할 값 선택
+        select: {
+          id: true,
+        },
+      });
+    }
     redirect(`/chats/${room.id}`);
   };
   return (
@@ -97,9 +161,7 @@ export default async function ProductDetail({
         <div>
           <h3>{product.user.username}</h3>
         </div>
-        <div>
-          <h3>등급(예: 수박게임-블루베리-토마토등)</h3>
-        </div>
+        <div>{/* <h3>등급(예: 수박게임-블루베리-토마토등)</h3> */}</div>
       </div>
       <div className="p-5">
         <h1 className="text-2xl font-semibold">{product.title}</h1>

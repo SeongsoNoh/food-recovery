@@ -98,6 +98,8 @@ export default function AddProduct() {
           placeholder="자세한 설명"
           {...register("description")}
           errors={state?.fieldErrors.description}
+          // className="h-40 border-neutral-500"
+          className="bg-transparent rounded-md w-full h-32 focus:outline-none ring-1 focus:ring-2 ring-neutral-200 focus:ring-main-button border-none placeholder:text-neutral-400 px-2"
         />
         <Button text="작성 완료" />
       </form>

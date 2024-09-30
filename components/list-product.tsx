@@ -1,10 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { formatToTimeAgo, formatToWon } from "@/lib/utils";
-import {
-  ChatBubbleBottomCenterIcon,
-  HandThumbUpIcon,
-} from "@heroicons/react/24/outline";
 
 interface ListProductProps {
   title: string;

@@ -2,7 +2,10 @@ import ChatMessagesList from "@/components/chat-messages-list";
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { Prisma } from "@prisma/client";
+import { unstable_cache as nextCache } from "next/cache";
+
 import { notFound } from "next/navigation";
+import { updateMessagesAsRead } from "./action";
 
 async function getRoom(id: string) {
   const room = await db.chatRoom.findUnique({
@@ -27,7 +30,22 @@ async function getRoom(id: string) {
   return room;
 }
 
-async function getMessages(chatRoomId: string) {
+async function getMessages(chatRoomId: string, userId: number) {
+  //   await db.message.updateMany({
+  //     where: {
+  //       chatRoomId,
+  //       userId: {
+  //         not: userId,
+  //       },
+  //       isRead: false,
+  //     },
+  //     data: {
+  //       isRead: true,
+  //     },
+  //   });
+
+  await updateMessagesAsRead(chatRoomId, userId);
+
   const messages = await db.message.findMany({
     where: {
       chatRoomId,
@@ -35,6 +53,7 @@ async function getMessages(chatRoomId: string) {
     select: {
       id: true,
       payload: true,
+      isRead: true,
       created_at: true,
       userId: true,
       user: {
@@ -47,6 +66,9 @@ async function getMessages(chatRoomId: string) {
   });
   return messages;
 }
+const getCachedMessages = nextCache(getMessages, ["chat-messages"], {
+  tags: ["realtime-chat"],
+});
 
 async function getUserProfile() {
   const session = await getSession();
@@ -69,8 +91,8 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
   if (!room) {
     return notFound();
   }
-  const initialMessages = await getMessages(params.id);
   const session = await getSession();
+  const initialMessages = await getMessages(params.id, session.id!);
   const user = await getUserProfile();
   if (!user) {
     return notFound();
