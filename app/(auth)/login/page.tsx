@@ -6,32 +6,33 @@ import SocialLogin from "@/components/social-login";
 import { useFormState } from "react-dom";
 import { logIn } from "./actions";
 import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
+import TopBar from "@/components/top-bar";
 
 export default function LogIn() {
   const [state, dispatch] = useFormState(logIn, null);
   return (
-    <div className="flex flex-col gap-10 py-8 px-6">
-      <div className="flex flex-col gap-2 *:font-medium">
-        <h1 className="text-2xl">로그인</h1>
-        {/* <h2 className="text-xl">Log in with email and password.</h2> */}
-      </div>
-      <form action={dispatch} className="flex flex-col gap-3">
+    <div className="flex flex-col gap-10 py-8 px-6 ">
+      <TopBar />
+      <form
+        action={dispatch}
+        className="flex flex-col gap-5 py-10 px-5 rounded-xl shadow-md bg-white"
+      >
         <FormInput
           name="email"
           type="email"
-          placeholder="Email"
+          placeholder="이메일"
           required
           errors={state?.fieldErrors.email}
         />
         <FormInput
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="비밀번호"
           required
           minLength={PASSWORD_MIN_LENGTH}
           errors={state?.fieldErrors.password}
         />
-        <FormButton text="Log in" />
+        <FormButton text="로그인" />
       </form>
       <SocialLogin />
     </div>

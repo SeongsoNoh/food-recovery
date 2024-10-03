@@ -54,7 +54,7 @@ const formSchema = z
       .max(10, "That is too loooong!")
       .trim()
       .toLowerCase()
-      .transform((username) => `🔥 ${username}`)
+      .transform((username) => `${username}`)
       .refine((username) => checkUsername(username), "No potatoes allowed!"),
     // .refine(checkUniqueUsername, "이미 있는 이름입니다."),
     email: z.string().email().toLowerCase(),
@@ -64,6 +64,7 @@ const formSchema = z
       .min(PASSWORD_MIN_LENGTH)
       .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
     confirm_password: z.string().min(4),
+    phone: z.string().min(11).max(13),
   })
   .superRefine(async ({ username }, ctx) => {
     const user = await db.user.findUnique({
@@ -114,6 +115,7 @@ export async function createAccount(prevState: any, formData: FormData) {
     email: formData.get("email"),
     password: formData.get("password"),
     confirm_password: formData.get("confirm_password"),
+    phone: formData.get("phone"),
   };
   const result = await formSchema.spa(data);
   if (!result.success) {
@@ -129,6 +131,7 @@ export async function createAccount(prevState: any, formData: FormData) {
         username: result.data.username,
         email: result.data.email,
         password: hashedPassword,
+        phone: result.data.phone,
       },
       select: {
         id: true,

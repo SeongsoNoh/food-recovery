@@ -1,6 +1,7 @@
 import ProductList from "@/components/product-list";
+import TopBar from "@/components/top-bar";
 import db from "@/lib/db";
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { PlusCircleIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { Prisma } from "@prisma/client";
 import Link from "next/link";
 
@@ -29,12 +30,13 @@ export default async function Product() {
   const initialProducts = await getInitialProducts();
   return (
     <div>
+      <h2 className="text-2xl text-center pt-4">홈</h2>
       <ProductList initialProducts={initialProducts} />
       <Link
         href="/products/add"
-        className="bg-main-button flex items-center justify-center rounded-full size-16 fixed bottom-24 right-8 text-white transition-colors hover:bg-main-button"
+        className=" flex items-center justify-center rounded-full size-16 fixed bottom-24 right-8"
       >
-        <PlusIcon className="size-10" />
+        <PlusCircleIcon className="size-16" />
       </Link>
     </div>
   );

@@ -11,10 +11,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "main-color": "#f6fbf4",
+        "main-color": "#F6FBF4",
         "main-button": "#0B9563",
         "sub-color": "#DDF7E5",
-        "sub-button": "#FFDCD1",
+        "sub-button": "rgb(254 220 209)",
         "bottom-border-color": "#EEEEEE",
       },
     },

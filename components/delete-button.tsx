@@ -21,7 +21,7 @@ export default function DeleteButton({ productId, userId }: DeleteButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold"
+      className="bg-sub-button px-5 py-2.5 rounded-md text-neutral-600 font-semibold"
     >
       삭제
     </button>
