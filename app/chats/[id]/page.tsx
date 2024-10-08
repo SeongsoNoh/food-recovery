@@ -6,6 +6,7 @@ import { unstable_cache as nextCache } from "next/cache";
 
 import { notFound } from "next/navigation";
 import { updateMessagesAsRead } from "./action";
+import TopBar from "@/components/top-bar";
 
 async function getRoom(id: string) {
   const room = await db.chatRoom.findUnique({
@@ -99,12 +100,15 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
   }
 
   return (
-    <ChatMessagesList
-      chatRoomId={params.id}
-      userId={session.id!}
-      usernmae={user.username}
-      avatar={user.avatar!}
-      initialMessages={initialMessages}
-    />
+    <div className="px-4 py-5">
+      <TopBar />
+      <ChatMessagesList
+        chatRoomId={params.id}
+        userId={session.id!}
+        usernmae={user.username}
+        avatar={user.avatar!}
+        initialMessages={initialMessages}
+      />
+    </div>
   );
 }

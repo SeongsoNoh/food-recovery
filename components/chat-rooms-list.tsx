@@ -99,17 +99,16 @@ export default function ChatRoomsList({
     };
   }, [chatRooms]);
   return (
-    <div className="p-10 flex flex-col gap-5">
+    <div className="py-3 px-5 flex flex-col gap-3">
       {chatRooms.map((chatRoom) => (
         <Link
           href={`/chats/${chatRoom.id}`}
           key={chatRoom.id}
-          className="flex justify-between mb-10 gap-20 text-black"
+          className="flex justify-between items-center gap-10 text-black p-7 border-neutral-200 rounded-2xl shadow-lg bg-white"
         >
           <div className="flex gap-16">
-            <div className="relative">
-              {/* <div className="absolute z-10 -top-3 -left-3 size-12 rounded-full bg-neutral-700"> */}
-              <div className="absolute z-10  size-12 rounded-full bg-neutral-700">
+            <div className="relative mr-1">
+              <div className="absolute z-10 -top-3 -left-3 size-12 rounded-full bg-neutral-700">
                 {chatRoom.users[0] === undefined ? (
                   <div className="size-12 rounded-full bg-neutral-400 flex items-center justify-center">
                     <Image
@@ -134,17 +133,17 @@ export default function ChatRoomsList({
                   />
                 )}
               </div>
-              {/* <div className="absolute z-20 top-4 left-4 size-12 rounded-md  border-2 border-neutral-900 overflow-hidden">
+              <div className="absolute size-12 z-20 top-5 left-2  rounded-md  border-2 border-neutral-100 overflow-hidden">
                 <Image
-                  src={`${chatRoom.product.photo}/smaller`}
+                  src={`${chatRoom.product.photo}`}
                   alt="No photo"
                   fill
                   className="object-cover z-30"
                 />
-              </div> */}
+              </div>
             </div>
             <div className="flex flex-col gap-2 *:rounded-md">
-              <div className="flex items-end gap-2">
+              <div className="flex items-center gap-2">
                 <span>
                   {chatRoom.users[0] === undefined
                     ? "나와의 채팅"
@@ -158,14 +157,14 @@ export default function ChatRoomsList({
                       )}
                 </span>
               </div>
-              <div>
+              <div className="">
                 {chatRoom.Messages[0] === undefined ? (
                   "메시지가 없습니다."
                 ) : (
                   <span
                     className={`${
                       chatRoom.Messages[0].isRead ? "text-neutral-500" : null
-                    }`}
+                    } text-ellipsis overflow-hidden whitespace-nowrap`}
                   >
                     {chatRoom.Messages[0].payload}
                   </span>
@@ -173,9 +172,8 @@ export default function ChatRoomsList({
               </div>
             </div>
           </div>
-          {chatRoom.Messages[0] === undefined || chatRoom.Messages[0].isRead ? (
-            <span className="text-neutral-600">읽음</span>
-          ) : (
+          {chatRoom.Messages[0] === undefined ||
+          chatRoom.Messages[0].isRead ? null : ( // <span className="text-neutral-500 text-sm">읽음</span>
             <div className="flex items-center justify-center">
               {chatRoom._count.Messages === 0 ? null : (
                 <span className="px-2.5 pt-1 pb-1 text-xs bg-main-button rounded-xl">

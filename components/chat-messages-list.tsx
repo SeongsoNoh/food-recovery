@@ -142,7 +142,7 @@ export default function ChatMessagesList({
 
   return (
     <>
-      <div className="p-5 flex flex-col gap-5 min-h-screen justify-end pb-20">
+      <div className="py-16 px-5 flex flex-col gap-5 min-h-screen justify-end pb-20 border-neutral-200 rounded-3xl shadow-lg bg-white ">
         {messages.map((message, index) => (
           <div
             key={message.id}
@@ -193,9 +193,9 @@ export default function ChatMessagesList({
               <span
                 className={`${
                   message.userId === userId
-                    ? "bg-neutral-500"
-                    : "bg-main-button"
-                } p-2.5 rounded-md`}
+                    ? "bg-main-button text-white"
+                    : "bg-main-color"
+                } p-2.5 rounded-md font-light`}
               >
                 {message.payload}
               </span>

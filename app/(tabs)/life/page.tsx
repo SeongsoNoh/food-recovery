@@ -36,12 +36,12 @@ export default async function Life() {
   const posts = await getPosts();
   console.log(posts);
   return (
-    <div className="p-5 flex flex-col">
+    <div className="p-5 flex flex-col gap-2">
       {posts.map((post) => (
         <Link
           key={post.id}
           href={`/posts/${post.id}`}
-          className="pb-5 mb-5 border-b border-neutral-500 text-black flex  flex-col gap-2 last:pb-0 last:border-b-0"
+          className="px-4 py-3 text-black flex  flex-col gap-2  bg-white rounded-lg shadow-md"
         >
           <h2 className="text-black text-lg font-semibold">{post.title}</h2>
           <p>{post.description}</p>
@@ -64,6 +64,14 @@ export default async function Life() {
           </div>
         </Link>
       ))}
+      <Link
+        href="/posts/add"
+        className=" flex items-center justify-center rounded-full fixed bottom-24 right-8"
+      >
+        <button className="px-4 py-2 bg-main-button text-white rounded-lg">
+          글쓰기
+        </button>
+      </Link>
     </div>
   );
 }

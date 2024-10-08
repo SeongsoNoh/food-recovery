@@ -23,7 +23,12 @@ export default async function Chat() {
   if (!user) {
     return notFound();
   }
-  return <ChatRoomsList initialChatRooms={initialChatRooms} user={user} />;
+  return (
+    <>
+      <h2 className="text-2xl text-center pt-4">채팅</h2>{" "}
+      <ChatRoomsList initialChatRooms={initialChatRooms} user={user} />{" "}
+    </>
+  );
   // return (
   //   <div className="p-10 flex flex-col gap-5">
   //     {chatRooms.map((chatRoom) => (
