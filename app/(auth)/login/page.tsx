@@ -11,11 +11,11 @@ import TopBar from "@/components/top-bar";
 export default function LogIn() {
   const [state, dispatch] = useFormState(logIn, null);
   return (
-    <div className="flex flex-col gap-10 py-8 px-6 ">
+    <div className="flex flex-col gap-10 p-5">
       <TopBar />
       <form
         action={dispatch}
-        className="flex flex-col gap-5 py-10 px-5 rounded-xl shadow-md bg-white"
+        className="mt-20 px-6 py-10 flex flex-col gap-5 rounded-xl shadow-md bg-white"
       >
         <FormInput
           name="email"

@@ -135,9 +135,20 @@ export default async function PostDetail({
             </div>
           </div>
         </div>
-        <h2 className="text-lg font-semibold">{post.title}</h2>
-        <p className="mb-5">{post.description}</p>
-        <div className="flex flex-col gap-5 items-start">
+        <div className="flex flex-col gap-2">
+          <h2 className="text-lg font-semibold">{post.title}</h2>
+          <p className="mb-5">{post.description}</p>
+          {post.photo !== null ? (
+            <Image
+              width={300}
+              height={100}
+              src={post.photo}
+              className="object-cover"
+              alt={post.title}
+            />
+          ) : null}
+        </div>
+        <div className="mt-3 flex flex-col gap-5 items-start">
           <div className="flex items-center gap-2 text-neutral-400 text-sm">
             <EyeIcon className="size-5" />
             <span>{post.views}명이 봤어요</span>

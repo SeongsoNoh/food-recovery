@@ -8,7 +8,7 @@ export default function TopBar() {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <div className="fixed top-0 w-full mx-auto max-w-screen-md flex items-center gap-48 *:text-neutral-600 bg-main-color h-16 ">
+    <div className="fixed top-0 w-full mx-auto max-w-screen-md flex items-center gap-44 *:text-neutral-600 bg-main-color h-16 ">
       {pathname.includes("chats") ? (
         <Link href="/chat">
           <ChevronLeftIcon className="size-8" />
