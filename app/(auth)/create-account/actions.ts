@@ -115,8 +115,9 @@ export async function createAccount(prevState: any, formData: FormData) {
     email: formData.get("email"),
     password: formData.get("password"),
     confirm_password: formData.get("confirm_password"),
-    phone: formData.get("phone"),
+    phone: formData.get("phoneNumber"),
   };
+
   const result = await formSchema.spa(data);
   if (!result.success) {
     return result.error.flatten();
@@ -132,6 +133,7 @@ export async function createAccount(prevState: any, formData: FormData) {
         email: result.data.email,
         password: hashedPassword,
         phone: result.data.phone,
+        avatar: "https://buly.kr/EI2QyDt",
       },
       select: {
         id: true,
