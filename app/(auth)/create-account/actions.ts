@@ -47,11 +47,11 @@ const formSchema = z
   .object({
     username: z
       .string({
-        invalid_type_error: "Username must be a string!",
-        required_error: "Where is my username?",
+        invalid_type_error: "이름은 글자여야 합니다.",
+        required_error: "이름을 입력해주세요.",
       })
-      .min(3, "Way too short!!!")
-      .max(10, "That is too loooong!")
+      .min(3, "이름이 너무 짧습니다.")
+      .max(10, "이름이 너무 깁니다.")
       .trim()
       .toLowerCase()
       .transform((username) => `${username}`)
@@ -105,7 +105,7 @@ const formSchema = z
     }
   })
   .refine(checkPasswords, {
-    message: "Both passwords should be the same!",
+    message: "비밀번호는 같아야 합니다.",
     path: ["confirm_password"],
   });
 

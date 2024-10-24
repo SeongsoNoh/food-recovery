@@ -17,7 +17,7 @@ export default function CreateAccount() {
     <div className="flex flex-col gap-10 py-6 px-4 ">
       <TopBar />
 
-      <form action={dispatch} className="flex flex-col gap-5">
+      <form action={dispatch} className="flex flex-col gap-5 mt-14">
         <div className="flex flex-col gap-4 p-5 rounded-xl shadow-md bg-white">
           <h2 className="text-xl pb-3">계정정보</h2>
           <Input
