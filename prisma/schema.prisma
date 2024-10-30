@@ -15,7 +15,7 @@ model User {
   password   String?
   phone      String?    @unique
   github_id  String?    @unique
-  birthday   Int?
+  birthday   String?
   avatar     String?
   created_at DateTime   @default(now())
   updated_at DateTime   @updatedAt
@@ -26,6 +26,10 @@ model User {
   likes      Like[]
   chat_rooms ChatRoom[]
   messages   Message[]
+
+  favs     Fav[]
+  sales    Sale[]
+  purchase Purchase[]
 }
 
 model SMSToken {
@@ -50,6 +54,42 @@ model Product {
   userId     Int
 
   ChatRoom ChatRoom[]
+
+  favs     Fav[]
+  sales    Sale[]
+  purchase Purchase[]
+}
+
+model Fav {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([userId, productId])
+}
+
+model Sale {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Purchase {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Post {

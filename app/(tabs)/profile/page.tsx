@@ -47,8 +47,8 @@ export default async function Profile() {
           <div>{user?.username}</div>
         </div>
         <Link
-          href={`/products/${user.id}`}
-          className="bg-bottom-border-color p-1.5 rounded-md text-black text-center"
+          href={`/profiles/${user.id}`}
+          className="bg-main-button p-1.5 rounded-md text-white text-center"
         >
           <span>프로필 수정</span>
         </Link>
@@ -59,10 +59,13 @@ export default async function Profile() {
         </div>
       </div>
       <div className="py-7 px-10 rounded-lg bg-white flex gap-8 justify-center text-center">
-        <div className="flex flex-col gap-2 items-center justify-center">
+        <Link
+          href={`/profile/loved`}
+          className="flex flex-col gap-2 items-center justify-center text-black"
+        >
           <HeartIcon className="h-6" />
           <h1 className="text-xs">관심목록</h1>
-        </div>
+        </Link>
         <div className="w-px h-10 bg-gray-300 items-center"></div>
         <div className="flex flex-col gap-2 items-center justify-center">
           <ReceiptPercentIcon className="h-6" />
