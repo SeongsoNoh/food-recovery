@@ -2,12 +2,12 @@ import DeleteButton from "@/components/delete-button";
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { formatToWon } from "@/lib/utils";
-import { HeartIcon } from "@heroicons/react/24/outline";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 
-import { unstable_cache as nextCache, revalidateTag } from "next/cache";
+import { unstable_cache as nextCache } from "next/cache";
+import FavButton from "@/components/fav-button";
 
 async function getIsOwner(userId: number) {
   const session = await getSession();
@@ -18,7 +18,6 @@ async function getIsOwner(userId: number) {
 }
 
 async function getProduct(id: number) {
-  console.log("product");
   const product = await db.product.findUnique({
     where: {
       id,
@@ -62,6 +61,29 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   return {
     title: product?.title,
   };
+}
+async function getFavStatus(productId: number, userId: number) {
+  // const session = await getSession();
+  const isLiked = await db.fav.findUnique({
+    where: {
+      id: {
+        productId,
+        userId: userId!,
+      },
+    },
+  });
+
+  return {
+    isLiked: Boolean(isLiked),
+  };
+}
+async function getCachedFavStatus(productId: number) {
+  const session = await getSession();
+  const userId = session.id;
+  const cachedOperation = nextCache(getFavStatus, ["product-like-status"], {
+    tags: [`like-status-${productId}`],
+  });
+  return cachedOperation(productId, userId!);
 }
 
 export default async function ProductDetail({
@@ -135,6 +157,7 @@ export default async function ProductDetail({
     }
     redirect(`/chats/${room.id}`);
   };
+  const { isLiked } = await getCachedFavStatus(product.id);
 
   return (
     <div>
@@ -170,7 +193,7 @@ export default async function ProductDetail({
       </div>
       <div className="fixed w-full bottom-0 left-0 py-4 px-5 bg-white flex justify-between items-center border-t border-neutral-300">
         <div className="flex items-center">
-          <HeartIcon className="w-7 h-7 stroke-neutral-400" />
+          <FavButton productId={product.id} isLiked={isLiked} />
           <svg height="50" width="20">
             <line
               x1="10"
