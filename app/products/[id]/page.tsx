@@ -170,9 +170,7 @@ export default async function ProductDetail({
       </div>
       <div className="fixed w-full bottom-0 left-0 py-4 px-5 bg-white flex justify-between items-center border-t border-neutral-300">
         <div className="flex items-center">
-          <button onClick={toggleFav}>
-            <HeartIcon className="w-7 h-7 stroke-neutral-400" />
-          </button>
+          <HeartIcon className="w-7 h-7 stroke-neutral-400" />
           <svg height="50" width="20">
             <line
               x1="10"
