@@ -1,7 +1,17 @@
+import LiveList from "@/components/live-list";
+import { PlusIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
+
 export default function Live() {
   return (
-    <div>
-      <h1 className="text-white text-4xl">Live!</h1>
+    <div className="p-2">
+      <Link
+        href="/streams/add"
+        className=" flex items-center justify-center border-main-button bg-main-button text-white rounded-md w-full p-3"
+      >
+        <span>라이브 시작하기</span>
+      </Link>
+      <LiveList />
     </div>
   );
 }
