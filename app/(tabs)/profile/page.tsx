@@ -60,17 +60,20 @@ export default async function Profile() {
       </div>
       <div className="py-7 px-10 rounded-lg bg-white flex gap-8 justify-center text-center">
         <Link
-          href={`/profile/loved`}
+          href={`/profiles/loved`}
           className="flex flex-col gap-2 items-center justify-center text-black"
         >
           <HeartIcon className="h-6" />
           <h1 className="text-xs">관심목록</h1>
         </Link>
         <div className="w-px h-10 bg-gray-300 items-center"></div>
-        <div className="flex flex-col gap-2 items-center justify-center">
+        <Link
+          href={`/profiles/sold`}
+          className="flex flex-col gap-2 items-center justify-center text-black"
+        >
           <ReceiptPercentIcon className="h-6" />
           <h1 className="text-xs">판매내역</h1>
-        </div>
+        </Link>
         <div className="w-px h-10 bg-gray-300 items-center"></div>
         <div className="flex flex-col gap-2 items-center justify-center">
           <GiftIcon className="h-6" />
@@ -83,7 +86,10 @@ export default async function Profile() {
           <RectangleGroupIcon className="h-6" />
           <span>내 동네생활 글</span>
         </Link>
-        <Link href={``} className="flex gap-3 items-center text-black">
+        <Link
+          href={`/profiles/bought`}
+          className="flex gap-3 items-center text-black"
+        >
           <RectangleGroupIcon className="h-6" />
           <span>구매내역</span>
         </Link>

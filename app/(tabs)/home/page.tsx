@@ -14,7 +14,7 @@ async function getInitialProducts() {
       photo: true,
       id: true,
     },
-    take: 1,
+    take: 5,
     orderBy: {
       created_at: "desc",
     },

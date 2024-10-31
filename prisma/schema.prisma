@@ -73,23 +73,25 @@ model Fav {
 }
 
 model Sale {
-  id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     Int
   product    Product  @relation(fields: [productId], references: [id])
   productId  Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@id(name: "id", [userId, productId])
 }
 
 model Purchase {
-  id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     Int
   product    Product  @relation(fields: [productId], references: [id])
   productId  Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@id(name: "id", [userId, productId])
 }
 
 model Post {

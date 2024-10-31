@@ -6,6 +6,7 @@ import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
 import { productSchema } from "./schema";
+import { connect } from "http2";
 
 export async function uploadProduct(_: any, formData: FormData) {
   const data = {
@@ -40,6 +41,20 @@ export async function uploadProduct(_: any, formData: FormData) {
         },
         select: {
           id: true,
+        },
+      });
+      await db.sale.create({
+        data: {
+          user: {
+            connect: {
+              id: session.id,
+            },
+          },
+          product: {
+            connect: {
+              id: product.id,
+            },
+          },
         },
       });
       redirect(`/products/${product.id}`);
