@@ -45,6 +45,13 @@ const checkUniqueEmail = async (email: string) => {
 };
 const formSchema = z
   .object({
+    email: z.string().email().toLowerCase(),
+    // .refine(checkUniqueEmail, "이미 있는 이메일입니다."),
+    password: z
+      .string()
+      .min(PASSWORD_MIN_LENGTH)
+      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+    confirm_password: z.string().min(4),
     username: z
       .string({
         invalid_type_error: "이름은 글자여야 합니다.",
@@ -57,34 +64,27 @@ const formSchema = z
       .transform((username) => `${username}`)
       .refine((username) => checkUsername(username), "No potatoes allowed!"),
     // .refine(checkUniqueUsername, "이미 있는 이름입니다."),
-    email: z.string().email().toLowerCase(),
-    // .refine(checkUniqueEmail, "이미 있는 이메일입니다."),
-    password: z
-      .string()
-      .min(PASSWORD_MIN_LENGTH)
-      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
-    confirm_password: z.string().min(4),
     phone: z.string().min(11).max(13),
   })
-  .superRefine(async ({ username }, ctx) => {
-    const user = await db.user.findUnique({
-      where: {
-        username,
-      },
-      select: {
-        id: true,
-      },
-    });
-    if (user) {
-      ctx.addIssue({
-        code: "custom",
-        message: "이미 사용중인 이름입니다.",
-        path: ["username"],
-        fatal: true,
-      });
-      return z.NEVER;
-    }
-  })
+  // .superRefine(async ({ username }, ctx) => {
+  //   const user = await db.user.findUnique({
+  //     where: {
+  //       username,
+  //     },
+  //     select: {
+  //       id: true,
+  //     },
+  //   });
+  //   if (user) {
+  //     ctx.addIssue({
+  //       code: "custom",
+  //       message: "이미 사용중인 이름입니다.",
+  //       path: ["username"],
+  //       fatal: true,
+  //     });
+  //     return z.NEVER;
+  //   }
+  // })
   .superRefine(async ({ email }, ctx) => {
     const user = await db.user.findUnique({
       where: {
@@ -107,6 +107,25 @@ const formSchema = z
   .refine(checkPasswords, {
     message: "비밀번호는 같아야 합니다.",
     path: ["confirm_password"],
+  })
+  .superRefine(async ({ phone }, ctx) => {
+    const user = await db.user.findUnique({
+      where: {
+        phone,
+      },
+      select: {
+        id: true,
+      },
+    });
+    if (user) {
+      ctx.addIssue({
+        code: "custom",
+        message: "이미 사용중인 전화번호 입니다.",
+        path: ["phone"],
+        fatal: true,
+      });
+      return z.NEVER;
+    }
   });
 
 export async function createAccount(prevState: any, formData: FormData) {
@@ -115,7 +134,7 @@ export async function createAccount(prevState: any, formData: FormData) {
     email: formData.get("email"),
     password: formData.get("password"),
     confirm_password: formData.get("confirm_password"),
-    phone: formData.get("phoneNumber"),
+    phone: formData.get("phone"),
   };
 
   const result = await formSchema.spa(data);

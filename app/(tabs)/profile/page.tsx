@@ -8,6 +8,8 @@ import {
   HeartIcon,
   ReceiptPercentIcon,
   RectangleGroupIcon,
+  ShoppingBagIcon,
+  VideoCameraIcon,
 } from "@heroicons/react/24/outline";
 
 async function getUser() {
@@ -75,23 +77,36 @@ export default async function Profile() {
           <h1 className="text-xs">판매내역</h1>
         </Link>
         <div className="w-px h-10 bg-gray-300 items-center"></div>
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <GiftIcon className="h-6" />
-          <h1 className="text-xs">이벤트</h1>
-        </div>
-      </div>
-      <div className="p-5 rounded-lg bg-white flex flex-col gap-2">
-        <h1 className="text-xs">나의 활동</h1>
-        <Link href={``} className="flex gap-3 items-center text-black">
-          <RectangleGroupIcon className="h-6" />
-          <span>내 동네생활 글</span>
-        </Link>
         <Link
           href={`/profiles/bought`}
+          className="flex flex-col gap-2 items-center justify-center text-black"
+        >
+          <ShoppingBagIcon className="h-6" />
+          <h1 className="text-xs">구매내역</h1>
+        </Link>
+        {/* <div className="flex flex-col gap-2 items-center justify-center">
+          <GiftIcon className="h-6" />
+          <h1 className="text-xs">이벤트</h1>
+        </div> */}
+      </div>
+      <div className="p-5 rounded-lg bg-white flex flex-col gap-2">
+        {/* <h1 className="text-xs">나의 활동</h1> */}
+        <Link
+          href={`/profiles/life`}
           className="flex gap-3 items-center text-black"
         >
           <RectangleGroupIcon className="h-6" />
-          <span>구매내역</span>
+          <span>내 동네생활 글</span>
+        </Link>
+      </div>
+      <div className="p-5 rounded-lg bg-white flex flex-col gap-2">
+        {/* <h1 className="text-xs">나의 활동</h1> */}
+        <Link
+          href={`/profiles/live`}
+          className="flex gap-3 items-center text-black"
+        >
+          <VideoCameraIcon className="h-6" />
+          <span>내 쇼핑(라이브스트리밍)</span>
         </Link>
       </div>
       <form action={logOut}>

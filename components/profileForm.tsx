@@ -34,10 +34,11 @@ export default function ProfileDetail({ userDetail }: { userDetail: User }) {
           />
           <span className="text-sm text-neutral-500">휴대폰 번호</span>
           <Input
-            name="phoneNumber"
+            name="phone"
             type="tel"
             placeholder="01012345678"
             defaultValue={String(userDetail?.phone)}
+            errors={state?.fieldErrors.phone}
           />
         </div>
         <FormButton text="수정 완료" />

@@ -141,8 +141,8 @@ export default function ChatMessagesList({
   }, [messages]);
 
   return (
-    <>
-      <div className="py-16 px-5 flex flex-col gap-5 min-h-screen justify-end pb-20 border-neutral-200 rounded-3xl shadow-lg bg-white ">
+    <div className="flex flex-col justify-end">
+      <div className="py-16 px-5 flex flex-col gap-5 pb-20 border-neutral-200 rounded-3xl shadow-lg bg-white ">
         {messages.map((message, index) => (
           <div
             key={message.id}
@@ -233,6 +233,6 @@ export default function ChatMessagesList({
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 }

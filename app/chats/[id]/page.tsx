@@ -100,7 +100,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="px-4 py-5">
+    <div className="px-4 py-5 min-h-screen flex flex-col justify-end">
       <TopBar />
       <ChatMessagesList
         chatRoomId={params.id}

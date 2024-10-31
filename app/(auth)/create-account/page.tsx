@@ -57,7 +57,12 @@ export default function CreateAccount() {
           />
           <Input name="birthday" type="date" placeholder="생년월일" />
           <span className="text-sm text-neutral-500">휴대폰 번호</span>
-          <Input name="phoneNumber" type="tel" placeholder="01012345678" />
+          <Input
+            name="phone"
+            type="tel"
+            placeholder="01012345678"
+            errors={state?.fieldErrors.phone}
+          />
           <div className="flex gap-2 items-center *:text-neutral-500">
             <button onClick={checkBoxClick}>
               <CheckCircleIcon className="size-8 text-neutral-300" />
