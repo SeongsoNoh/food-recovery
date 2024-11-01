@@ -1,8 +1,7 @@
 import LiveList from "@/components/live-list";
-import { PlusIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-export default function Live() {
+export default async function Live() {
   return (
     <div className="p-2">
       <Link

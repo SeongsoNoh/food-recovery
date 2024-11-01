@@ -49,14 +49,15 @@ interface LiveListProps {
   userId: number;
 }
 
-export default async function LiveList({ userId }: LiveListProps) {
+// export default async function LiveList({ userId }: LiveListProps) {
+export default async function LiveList() {
   const pathname = usePathname();
   let lives = [];
-  if (pathname === "/profiles/loved") {
-    lives = await getMyLive(userId);
-  } else {
-    lives = await getLive();
-  }
+  // if (pathname === "/profiles/loved") {
+  //   lives = await getMyLive(userId);
+  // } else {
+  // }
+  lives = await getLive();
   console.log(lives);
   return (
     <div>
