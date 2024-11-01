@@ -35,7 +35,7 @@ export default function TabBar() {
         ) : (
           <OutlineVideoCameraIcon className="w-7 h-7" />
         )}
-        <span>쇼핑</span>
+        <span>라이브</span>
       </Link>
       <Link href="/home" className="flex flex-col items-center gap-px">
         {pathname === "/home" ? (

@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { postSchema, PostType } from "./schema";
 import Input from "@/components/input";
 import Button from "@/components/button";
+import Link from "next/link";
 
 const fileSchema = z.object({
   type: z.string().refine((value) => value.includes("image"), {
@@ -52,7 +53,12 @@ export default function AddPost() {
   return (
     <div>
       <div className="fixed top-0 bg-main-color w-full flex items-center py-4 border-b-2 justify-center ">
-        <XMarkIcon className="h-8 fixed left-3" />
+        <Link
+          href="/life"
+          className="fixed left-3 text-black hover:cursor-pointer"
+        >
+          <XMarkIcon className="size-8" />
+        </Link>
         <span className="text-xl ">동네생활 글쓰기</span>
       </div>
       <form action={action} className="px-5 py-20 flex flex-col gap-3">

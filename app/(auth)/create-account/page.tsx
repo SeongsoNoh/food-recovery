@@ -14,15 +14,29 @@ import Script from "next/script";
 
 export default function CreateAccount() {
   const [state, dispatch] = useFormState(createAccount, null);
-  function checkBoxClick() {}
+  const [isChecked, setIsChecked] = useState(false);
+  function checkBoxClick() {
+    setIsChecked(!isChecked);
+  }
+  async function handleSubmit(event: any) {
+    if (!isChecked) {
+      event.preventDefault(); // 체크박스가 선택되지 않았을 때 폼 제출을 막음
+      alert("개인정보 활용에 동의해야 계정을 생성할 수 있습니다.");
+      return;
+    }
+  }
   return (
     <div className="flex flex-col gap-10 py-6 px-4 ">
       <TopBar />
 
-      <div className="mt-14 flex flex-col p-5 rounded-xl shadow-md bg-white">
+      {/* <div className="mt-14 flex flex-col p-5 rounded-xl shadow-md bg-white">
         <Map />
-      </div>
-      <form action={dispatch} className="flex flex-col gap-5 ">
+      </div> */}
+      <form
+        action={dispatch}
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-5 mt-14"
+      >
         <div className="flex flex-col gap-4 p-5 rounded-xl shadow-md bg-white">
           <h2 className="text-xl pb-3">계정정보</h2>
           <Input
@@ -70,8 +84,12 @@ export default function CreateAccount() {
           />
 
           <div className="flex gap-2 items-center *:text-neutral-500">
-            <button onClick={checkBoxClick}>
-              <CheckCircleIcon className="size-8 text-neutral-300" />
+            <button type="button" onClick={checkBoxClick}>
+              <CheckCircleIcon
+                className={`size-8 ${
+                  isChecked ? "text-green-500" : "text-neutral-300"
+                }`}
+              />
             </button>
             <span>개인정보 활용에 동의하시나요?</span>
           </div>

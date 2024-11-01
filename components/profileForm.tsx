@@ -30,7 +30,7 @@ export default function ProfileDetail({ userDetail }: { userDetail: User }) {
             name="birthday"
             type="date"
             placeholder="생년월일"
-            defaultValue={String(userDetail?.birthday)}
+            defaultValue={Number(userDetail?.birthday)}
           />
           <span className="text-sm text-neutral-500">휴대폰 번호</span>
           <Input

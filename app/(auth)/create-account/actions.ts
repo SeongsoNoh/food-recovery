@@ -136,7 +136,7 @@ export async function createAccount(prevState: any, formData: FormData) {
     confirm_password: formData.get("confirm_password"),
     phone: formData.get("phone"),
   };
-
+  console.log(data);
   const result = await formSchema.spa(data);
   if (!result.success) {
     return result.error.flatten();
