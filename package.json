@@ -14,6 +14,7 @@
     "@prisma/client": "^5.18.0",
     "@supabase/supabase-js": "^2.45.4",
     "@types/bcrypt": "^5.0.2",
+    "@types/navermaps": "^3.7.8",
     "bcrypt": "^5.1.1",
     "iron-session": "^8.0.3",
     "next": "14.2.5",

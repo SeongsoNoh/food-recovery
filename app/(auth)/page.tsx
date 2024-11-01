@@ -1,7 +1,6 @@
 import Link from "next/link";
 import logoImg from "../../image/logo/logo.png";
 import Image from "next/image";
-import TopBar from "@/components/top-bar";
 
 export default function Home() {
   return (

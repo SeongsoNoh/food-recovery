@@ -9,6 +9,8 @@ import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
 import TopBar from "@/components/top-bar";
 import { useEffect, useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import Map from "@/components/map";
+import Script from "next/script";
 
 export default function CreateAccount() {
   const [state, dispatch] = useFormState(createAccount, null);
@@ -17,7 +19,10 @@ export default function CreateAccount() {
     <div className="flex flex-col gap-10 py-6 px-4 ">
       <TopBar />
 
-      <form action={dispatch} className="flex flex-col gap-5 mt-14">
+      <div className="mt-14 flex flex-col p-5 rounded-xl shadow-md bg-white">
+        <Map />
+      </div>
+      <form action={dispatch} className="flex flex-col gap-5 ">
         <div className="flex flex-col gap-4 p-5 rounded-xl shadow-md bg-white">
           <h2 className="text-xl pb-3">계정정보</h2>
           <Input
@@ -63,6 +68,7 @@ export default function CreateAccount() {
             placeholder="01012345678"
             errors={state?.fieldErrors.phone}
           />
+
           <div className="flex gap-2 items-center *:text-neutral-500">
             <button onClick={checkBoxClick}>
               <CheckCircleIcon className="size-8 text-neutral-300" />
@@ -72,7 +78,8 @@ export default function CreateAccount() {
         </div>
         <FormButton text="계정 생성" />
       </form>
-      <SocialLogin />
+
+      {/* <SocialLogin /> */}
     </div>
   );
 }
