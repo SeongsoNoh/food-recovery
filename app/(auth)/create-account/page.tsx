@@ -29,9 +29,9 @@ export default function CreateAccount() {
     <div className="flex flex-col gap-10 py-6 px-4 ">
       <TopBar />
 
-      {/* <div className="mt-14 flex flex-col p-5 rounded-xl shadow-md bg-white">
+      <div className="mt-14 flex flex-col p-5 rounded-xl shadow-md bg-white">
         <Map />
-      </div> */}
+      </div>
       <form
         action={dispatch}
         onSubmit={handleSubmit}
