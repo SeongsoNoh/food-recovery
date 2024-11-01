@@ -6,5 +6,5 @@ import { usePathname } from "next/navigation";
 
 export default async function Live() {
   const session = await getSession();
-  return <LiveList userId={Number(session.id)} />;
+  return <LiveList />;
 }
