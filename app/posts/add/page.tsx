@@ -76,11 +76,11 @@ export default function AddPost() {
           {...register("description")}
           //   errors={state?.fieldErrors.description}
           // className="h-40 border-neutral-500"
-          className="bg-transparent rounded-md w-full h-96 focus:outline-none ring-1 focus:ring-2 ring-neutral-200 focus:ring-main-button border-none placeholder:text-neutral-400 px-2"
+          className="bg-white rounded-md w-full h-96 focus:outline-none ring-1 focus:ring-2 ring-neutral-200 focus:ring-main-button border-none placeholder:text-neutral-400 px-2"
         />
         <label
           htmlFor="photo"
-          className="border-2 h-36 flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"
+          className="bg-white border-2 h-36 flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"
           style={{ backgroundImage: `url(${preview})` }}
         >
           {preview === "" ? (

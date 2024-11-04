@@ -2,12 +2,14 @@ import DeleteButton from "@/components/delete-button";
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { formatToWon } from "@/lib/utils";
-import { UserIcon } from "@heroicons/react/24/solid";
+import { UserIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 
 import { unstable_cache as nextCache } from "next/cache";
 import FavButton from "@/components/fav-button";
+import Link from "next/link";
+import BackButton from "@/components/back-button";
 
 async function getIsOwner(userId: number) {
   const session = await getSession();
@@ -161,11 +163,15 @@ export default async function ProductDetail({
 
   return (
     <div>
+      <div className="sticky top-0 bg-main-color w-full flex items-center py-4 border-b-2 justify-center ">
+        <BackButton />
+        <span className="text-xl ">home</span>
+      </div>
       <div className="relative aspect-square border-b border-neutral-300">
         <Image
-          fill
-          src={product.photo}
           className="object-cover"
+          fill
+          src={`${product.photo}/public`}
           alt={product.title}
         />
       </div>

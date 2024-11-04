@@ -12,6 +12,7 @@ export default function DeleteButton({ productId, userId }: DeleteButtonProps) {
     const confirmed = window.confirm("정말 삭제하시겠습니까?");
     if (!confirmed) return;
     try {
+      console.log(productId);
       await DeleteProduct({ productId, userId });
       alert("삭제되었습니다.");
     } catch (error) {

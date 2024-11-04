@@ -64,7 +64,8 @@ export async function logIn(prevState: any, formData: FormData) {
       const session = await getSession();
       session.id = user!.id;
       await session.save();
-      redirect("/profile");
+      // 로그인시 저장된 주소가 있으면 home으로 아니면 위치 선택 화면으로 넘어가기
+      redirect("/home");
     } else {
       return {
         fieldErrors: {

@@ -22,7 +22,12 @@ export default function ListProduct({
       className="flex gap-5 p-4 border-b border-neutral-200 rounded-2xl shadow-lg bg-white"
     >
       <div className="relative size-28 rounded-md overflow-hidden outline outline-1 outline-neutral-200">
-        <Image fill src={photo} className="obejct-cover " alt={title} />
+        <Image
+          fill
+          src={`${photo}/avatar`}
+          className="obejct-cover "
+          alt={title}
+        />
       </div>
       <div className="flex flex-col gap-1 *:text-neutral-600">
         <span className="text-lg">{title}</span>

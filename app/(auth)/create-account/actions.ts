@@ -163,7 +163,8 @@ export async function createAccount(prevState: any, formData: FormData) {
     session.id = user.id;
     await session.save();
 
+    //redirect("/위치선택 화면")
     // redirect "/home"
-    redirect("/profile");
+    redirect("/home");
   }
 }
