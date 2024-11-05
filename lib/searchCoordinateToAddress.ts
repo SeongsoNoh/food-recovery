@@ -17,6 +17,7 @@ export const searchCoordinateToAddress = (
       status: naver.maps.Service.Status,
       response: naver.maps.Service.ReverseGeocodeResponse
     ) {
+      console.log("response!!!!!!!!!!", response);
       // 응답을 못 받으면 'Something went wrong' alert 띄우기
       if (status !== naver.maps.Service.Status.OK) {
         return alert("응답 못받음!");

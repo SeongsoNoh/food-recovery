@@ -23,11 +23,12 @@ export default function RootLayout({
       <head>
         <Script
           strategy="beforeInteractive"
-          src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.MAP_ID}&submodules=geocoder`}
+          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.MAP_ID}&submodules=geocoder`}
         />
       </head>
       <body
         className={`${inter.className} bg-main-color text-black max-w-screen-sm mx-auto`}
+        suppressContentEditableWarning
       >
         {children}
       </body>

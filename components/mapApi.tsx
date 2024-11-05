@@ -2,15 +2,12 @@ import { searchAddressToCoordinate } from "@/lib/searchAddressToCoordinate";
 import { searchCoordinateToAddress } from "@/lib/searchCoordinateToAddress";
 import { useEffect, useRef, useState } from "react";
 
-// naver.maps.Map의 타입을 import하여 사용 (타입스크립트 사용시)
 type NaverMap = naver.maps.Map | null;
 type Coord = { latitude: number; longitude: number } | "";
 
 const useGetCurrentLocation = () => {
   const [myLocation, setMyLocation] = useState<Coord>("");
   useEffect(() => {
-    // 성공했다면 상태 값에 사용자 현재 위치 좌표 저장
-    // position은 nested Object이기 때문에 [key: string]: any 타입으로 지정해 줌.
     const success = (position: { [key: string]: any }) => {
       setMyLocation({
         latitude: position.coords.latitude,
@@ -18,69 +15,80 @@ const useGetCurrentLocation = () => {
       });
     };
 
-    // 실패했다면 상태 값에 Default 좌표 저장
     const error = () => {
       setMyLocation({ latitude: 37.3595316, longitude: 127.1052133 });
     };
 
     if (navigator.geolocation) {
-      // 위치 가져오기
       navigator.geolocation.getCurrentPosition(success, error);
     }
   }, []);
 
-  // 다른 곳에서 사용할 수 있도록 myLocation을 반환해준다.
   return myLocation;
 };
 
-export default function Map() {
+export default function MapApi() {
   const myLocation = useGetCurrentLocation();
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [nmap, setNmap] = useState<NaverMap>(null);
-  const [showMap, setShowMap] = useState<boolean>(false); // 지도의 표시 여부 상태
-
-  //   const initMap = () => {
-  //     if (typeof myLocation !== "string") {
-  //       nmap = new naver.maps.Map("map", {
-  //         center: new naver.maps.LatLng(
-  //           myLocation.latitude,
-  //           myLocation.longitude
-  //         ), // 초기 위치 (서울)
-  //         zoomControl: true,
-  //         size: { width: 500, height: 500 },
-  //         // scaleControl: false,
-  //         // mapDataControl: false,
-  //         // logoControlOptions: {
-  //         //   position: naver.maps.Position.BOTTOM_LEFT,
-  //         // },
-  //       });
-  //       naver.maps.Event.addListener(nmap, "click", function (e) {
-  //         searchCoordinateToAddress(e.coord, nmap as naver.maps.Map);
-  //       });
-  //     }
-  //   };
-  //   useEffect(() => {
-  //     initMap();
-  //   }, [mapRef, myLocation]);
+  const [showMap, setShowMap] = useState<boolean>(false);
 
   useEffect(() => {
-    // if (mapRef.current && typeof myLocation !== "string") {
     if (mapRef.current && typeof myLocation !== "string") {
       const mapInstance = new naver.maps.Map(mapRef.current, {
         center: new naver.maps.LatLng(
           myLocation.latitude,
           myLocation.longitude
-        ), // 초기 위치
+        ),
         zoomControl: true,
-        size: { width: 400, height: 400 },
+        size: { width: 600, height: 700 },
       });
-      setNmap(mapInstance);
 
-      naver.maps.Event.addListener(mapInstance, "click", function (e) {
-        searchCoordinateToAddress(e.coord, mapInstance);
+      // init 이벤트 후에 사용자 정의 컨트롤을 추가
+      naver.maps.Event.once(mapInstance, "init", function () {
+        // 사용자 정의 컨트롤 버튼 생성
+        const locationButton = document.createElement("div");
+        locationButton.className = "custom-control";
+        locationButton.innerText = "내 위치";
+        // locationButton.style.position = "relative";
+        // locationButton.style.zIndex = "999";
+        locationButton.style.backgroundColor = "#fff";
+        locationButton.style.border = "1px solid #ccc";
+        locationButton.style.padding = "8px";
+        locationButton.style.cursor = "pointer";
+        locationButton.style.boxShadow = "0px 2px 4px rgba(0,0,0,0.15)"; // 버튼에 그림자 추가
+
+        // 내 위치로 이동하는 기능 추가
+        locationButton.onclick = () => {
+          console.log("클릭되낭????");
+          if (typeof myLocation !== "string") {
+            const userLocation = new naver.maps.LatLng(
+              myLocation.latitude,
+              myLocation.longitude
+            );
+            mapInstance.setCenter(userLocation);
+          }
+        };
+
+        // CustomControl 생성 및 지도에 추가
+
+        const customControl = new naver.maps.CustomControl(
+          locationButton.outerHTML,
+          {
+            position: naver.maps.Position.TOP_RIGHT,
+          }
+        );
+        customControl.setMap(mapInstance);
+
+        setNmap(mapInstance);
+
+        // 지도 클릭 시 좌표에 대한 주소 검색
+        naver.maps.Event.addListener(mapInstance, "click", function (e) {
+          searchCoordinateToAddress(e.coord, mapInstance);
+        });
       });
     }
-  }, [showMap, myLocation]); // myLocation 변경 시 지도 초기화
+  }, [showMap, myLocation]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,7 +115,7 @@ export default function Map() {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col gap-5 items-center">
       <form onSubmit={handleSubmit} className="flex gap-2 w-full">
         <input
           onKeyDown={handleKeydown}
@@ -123,7 +131,7 @@ export default function Map() {
           주소 검색
         </button>
       </form>
-      <div ref={mapRef} />
+      <div ref={mapRef} style={{ width: "100%", height: "400px" }} />
     </div>
   );
 }

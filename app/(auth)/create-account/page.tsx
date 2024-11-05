@@ -9,7 +9,7 @@ import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
 import TopBar from "@/components/top-bar";
 import { useEffect, useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import Map from "@/components/map";
+import Map from "@/components/mapApi";
 import Script from "next/script";
 
 export default function CreateAccount() {
