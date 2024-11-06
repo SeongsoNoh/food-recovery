@@ -9,23 +9,25 @@ datasource db {
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  username   String     @unique
-  email      String?    @unique
-  password   String?
-  phone      String?    @unique
-  github_id  String?    @unique
-  birthday   String?
-  avatar     String?
-  created_at DateTime   @default(now())
-  updated_at DateTime   @updatedAt
-  tokens     SMSToken[]
-  products   Product[]
-  posts      Post[]
-  comments   Comment[]
-  likes      Like[]
-  chat_rooms ChatRoom[]
-  messages   Message[]
+  id            Int        @id @default(autoincrement())
+  username      String     @unique
+  email         String?    @unique
+  password      String?
+  phone         String?    @unique
+  github_id     String?    @unique
+  birthday      String?
+  avatar        String?
+  address       String?
+  detailAddress String?
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+  tokens        SMSToken[]
+  products      Product[]
+  posts         Post[]
+  comments      Comment[]
+  likes         Like[]
+  chat_rooms    ChatRoom[]
+  messages      Message[]
 
   favs        Fav[]
   sales       Sale[]

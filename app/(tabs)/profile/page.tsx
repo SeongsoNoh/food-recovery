@@ -6,6 +6,7 @@ import Link from "next/link";
 import {
   GiftIcon,
   HeartIcon,
+  MapPinIcon,
   ReceiptPercentIcon,
   RectangleGroupIcon,
   ShoppingBagIcon,
@@ -47,6 +48,9 @@ export default async function Profile() {
             className="size-10 rounded-full"
           />
           <div>{user?.username}</div>
+          <div className="p-2 text-xs text-main-button bg-main-color rounded-md">
+            {user?.detailAddress}
+          </div>
         </div>
         <Link
           href={`/profiles/${user.id}`}
@@ -100,13 +104,18 @@ export default async function Profile() {
         </Link>
       </div>
       <div className="p-5 rounded-lg bg-white flex flex-col gap-2">
-        {/* <h1 className="text-xs">나의 활동</h1> */}
         <Link
           href={`/profiles/live`}
           className="flex gap-3 items-center text-black"
         >
           <VideoCameraIcon className="h-6" />
           <span>내 쇼핑(라이브스트리밍)</span>
+        </Link>
+      </div>
+      <div className="p-5 rounded-lg bg-white flex flex-col gap-2">
+        <Link href={`/map`} className="flex gap-3 items-center text-black">
+          <MapPinIcon className="h-6" />
+          <span>위치 변경</span>
         </Link>
       </div>
       <form action={logOut}>

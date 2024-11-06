@@ -56,6 +56,7 @@ export async function logIn(prevState: any, formData: FormData) {
       select: {
         id: true,
         password: true,
+        address: true,
       },
     });
     const ok = await bcrypt.compare(result.data.password, user?.password ?? "");
@@ -65,6 +66,9 @@ export async function logIn(prevState: any, formData: FormData) {
       session.id = user!.id;
       await session.save();
       // 로그인시 저장된 주소가 있으면 home으로 아니면 위치 선택 화면으로 넘어가기
+      if (!user!.address) {
+        redirect("/map");
+      }
       redirect("/home");
     } else {
       return {

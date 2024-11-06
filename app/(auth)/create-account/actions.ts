@@ -165,6 +165,6 @@ export async function createAccount(prevState: any, formData: FormData) {
 
     //redirect("/위치선택 화면")
     // redirect "/home"
-    redirect("/home");
+    redirect("/map");
   }
 }
