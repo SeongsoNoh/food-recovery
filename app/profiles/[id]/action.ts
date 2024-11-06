@@ -19,8 +19,10 @@ const formSchema = z
       .transform((username) => `${username}`),
     phone: z.string().min(11).max(13),
     birthday: z.string(),
+    avatar: z.string(),
   })
   .superRefine(async ({ phone }, ctx) => {
+    const session = await getSession();
     const user = await db.user.findUnique({
       where: {
         phone,
@@ -29,7 +31,7 @@ const formSchema = z
         id: true,
       },
     });
-    if (user) {
+    if (user && user.id !== session.id) {
       ctx.addIssue({
         code: "custom",
         message: "이미 사용중인 전화번호 입니다.",
@@ -42,11 +44,13 @@ const formSchema = z
 
 export async function updateAcount(prevState: any, formData: FormData) {
   // log the user in
+  console.log(formData);
   const session = await getSession();
   const data = {
     username: formData.get("username"),
     phone: formData.get("phone"),
     birthday: formData.get("birthday"),
+    avatar: formData.get("avatar"),
   };
   const result = await formSchema.spa(data);
   if (!result.success) {
@@ -60,7 +64,7 @@ export async function updateAcount(prevState: any, formData: FormData) {
         username: result.data.username,
         phone: result.data.phone,
         birthday: result.data.birthday,
-        // avatar: "https://buly.kr/EI2QyDt",
+        avatar: result.data.avatar + "/avatar",
       },
     });
 

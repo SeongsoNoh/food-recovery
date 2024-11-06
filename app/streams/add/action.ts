@@ -26,6 +26,7 @@ export async function startStream(_: any, formData: FormData) {
         },
         recording: {
           mode: "automatic",
+          timeoutSeconds: 300,
         },
       }),
     }

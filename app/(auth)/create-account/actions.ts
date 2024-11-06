@@ -152,7 +152,8 @@ export async function createAccount(prevState: any, formData: FormData) {
         email: result.data.email,
         password: hashedPassword,
         phone: result.data.phone,
-        avatar: "https://buly.kr/EI2QyDt",
+        avatar:
+          "https://imagedelivery.net/Wnox8XZD9gbcAvrlkKfJNw/970f919a-fb0b-4f7c-7dce-88ce7ff44600/avatar",
       },
       select: {
         id: true,

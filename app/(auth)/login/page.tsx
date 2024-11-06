@@ -14,7 +14,7 @@ export default function LogIn() {
     <div className="flex flex-col gap-10 p-5">
       <div className="fixed top-0 w-full mx-auto max-w-screen-md flex items-center justify-center *:text-neutral-600 bg-main-color h-16 ">
         <BackButton />
-        <span className="text-2xl font-semibold">회원가입</span>
+        <span className="text-2xl font-semibold">로그인</span>
       </div>
       <form
         action={dispatch}

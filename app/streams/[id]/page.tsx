@@ -13,6 +13,7 @@ async function getStream(id: number) {
       title: true,
       stream_key: true,
       stream_id: true,
+      thumbnail: true,
       userId: true,
       user: {
         select: {

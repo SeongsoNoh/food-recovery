@@ -17,6 +17,9 @@ const nextConfig = {
       {
         hostname: "customer-1q4esalayy2bejw2.cloudflarestream.com",
       },
+      {
+        hostname: "videodelivery.net",
+      },
     ],
   },
 };
