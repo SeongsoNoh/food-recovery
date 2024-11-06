@@ -14,6 +14,9 @@ const nextConfig = {
         protocol: "https",
         hostname: "buly.kr",
       },
+      {
+        hostname: "customer-1q4esalayy2bejw2.cloudflarestream.com",
+      },
     ],
   },
 };

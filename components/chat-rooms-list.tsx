@@ -99,7 +99,7 @@ export default function ChatRoomsList({
     };
   }, [chatRooms]);
   return (
-    <div className="py-3 px-5 flex flex-col gap-3">
+    <div className="px-5 flex flex-col gap-3">
       {chatRooms.map((chatRoom) => (
         <Link
           href={`/chats/${chatRoom.id}`}

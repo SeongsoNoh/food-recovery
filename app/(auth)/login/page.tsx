@@ -6,13 +6,16 @@ import SocialLogin from "@/components/social-login";
 import { useFormState } from "react-dom";
 import { logIn } from "./actions";
 import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
-import TopBar from "@/components/top-bar";
+import BackButton from "@/components/back-button";
 
 export default function LogIn() {
   const [state, dispatch] = useFormState(logIn, null);
   return (
     <div className="flex flex-col gap-10 p-5">
-      <TopBar />
+      <div className="fixed top-0 w-full mx-auto max-w-screen-md flex items-center justify-center *:text-neutral-600 bg-main-color h-16 ">
+        <BackButton />
+        <span className="text-2xl font-semibold">회원가입</span>
+      </div>
       <form
         action={dispatch}
         className="mt-20 px-6 py-10 flex flex-col gap-5 rounded-xl shadow-md bg-white"

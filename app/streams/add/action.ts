@@ -37,6 +37,7 @@ export async function startStream(_: any, formData: FormData) {
       title: results.data,
       stream_id: data.result.uid,
       stream_key: data.result.rtmps.streamKey,
+      thumbnail: data.result.thumbnail,
       userId: session.id!,
     },
     select: {

@@ -4,7 +4,7 @@ import fs from "fs/promises";
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
-import { postSchema } from "./schema";
+import { postSchema } from "./schema";
 
 export async function uploadPost(_: any, formData: FormData) {
   const data = {
@@ -13,11 +13,6 @@ export async function uploadPost(_: any, formData: FormData) {
     description: formData.get("description"),
   };
 
-  if (data.photo instanceof File) {
-    const photoData = await data.photo.arrayBuffer();
-    await fs.appendFile(`./public/${data.photo.name}`, Buffer.from(photoData));
-    data.photo = `/${data.photo.name}`;
-  }
   const results = postSchema.safeParse(data);
   if (!results.success) {
     return results.error.flatten();

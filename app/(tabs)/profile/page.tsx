@@ -37,7 +37,7 @@ export default async function Profile() {
     redirect("/");
   };
   return (
-    <div className="py-6 px-3 flex flex-col gap-4">
+    <div className="px-3 flex flex-col gap-4">
       <div className="py-5 px-3 rounded-lg bg-white flex flex-col gap-5">
         <div className="flex gap-3 items-center">
           <Image
@@ -49,7 +49,7 @@ export default async function Profile() {
           />
           <div>{user?.username}</div>
           <div className="p-2 text-xs text-main-button bg-main-color rounded-md">
-            {user?.detailAddress}
+            {user?.address}
           </div>
         </div>
         <Link

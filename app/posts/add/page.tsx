@@ -6,10 +6,11 @@ import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { postSchema, PostType } from "./schema";
+import { postSchema, PostType } from "./schema";
 import Input from "@/components/input";
 import Button from "@/components/button";
 import Link from "next/link";
+import { getUploadUrl } from "@/lib/imgUploadUrl";
 
 const fileSchema = z.object({
   type: z.string().refine((value) => value.includes("image"), {
@@ -21,13 +22,14 @@ const fileSchema = z.object({
 });
 
 export default function AddPost() {
-  const [state, action] = useFormState(uploadPost, null);
   const [preview, setPreview] = useState("");
+  const [uploadUrl, setUploadUrl] = useState("");
+  const [photoId, setPhotoId] = useState("");
   const { register } = useForm<PostType>({
     resolver: zodResolver(postSchema),
   });
 
-  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files },
     } = event;
@@ -37,19 +39,49 @@ export default function AddPost() {
     }
 
     const file = files[0];
-
-    const result = fileSchema.safeParse(file);
-    if (!result.success) {
+    const fileResult = fileSchema.safeParse(file);
+    if (!fileResult.success) {
       alert(
-        result.error.flatten().fieldErrors.type ||
-          result.error.flatten().fieldErrors.size
+        fileResult.error.flatten().fieldErrors.type ||
+          fileResult.error.flatten().fieldErrors.size
       );
       return;
     }
 
     const previewUrl = URL.createObjectURL(file);
     setPreview(previewUrl);
+    const { success, result } = await getUploadUrl();
+    if (success) {
+      const { id, uploadURL } = result;
+      setUploadUrl(uploadURL);
+      setPhotoId(id);
+    } else {
+      console.log("dksehlskmssrjsirhdbbbnbnbnbnbnbnbn");
+    }
   };
+
+  const interceptAction = async (_: any, formData: FormData) => {
+    const file = formData.get("photo");
+    if (!file) {
+      return;
+    }
+    // upload image to cloudflare
+    const cloudflareForm = new FormData();
+    cloudflareForm.append("file", file);
+    const response = await fetch(uploadUrl, {
+      method: "post",
+      body: cloudflareForm,
+    });
+    if (response.status !== 200) {
+      return;
+    }
+    // replace `photo` in formData
+    const photoUrl = `https://imagedelivery.net/Wnox8XZD9gbcAvrlkKfJNw/${photoId}`;
+    formData.set("photo", photoUrl);
+    // call upload product.
+    return uploadPost(_, formData);
+  };
+  const [state, action] = useFormState(interceptAction, null);
   return (
     <div>
       <div className="fixed top-0 bg-main-color w-full flex items-center py-4 border-b-2 justify-center ">

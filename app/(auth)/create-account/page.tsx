@@ -6,11 +6,10 @@ import SocialLogin from "@/components/social-login";
 import { useFormState } from "react-dom";
 import { createAccount } from "./actions";
 import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
-import TopBar from "@/components/top-bar";
 import { useEffect, useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import Map from "@/components/mapApi";
-import Script from "next/script";
+import TopBar from "@/components/top-bar";
+import BackButton from "@/components/back-button";
 
 export default function CreateAccount() {
   const [state, dispatch] = useFormState(createAccount, null);
@@ -27,11 +26,10 @@ export default function CreateAccount() {
   }
   return (
     <div className="flex flex-col gap-10 py-6 px-4 ">
-      <TopBar />
-      {/* 
-      <div className="mt-14 flex flex-col p-5 rounded-xl shadow-md bg-white">
-        <Map />
-      </div> */}
+      <div className="fixed top-0 w-full mx-auto max-w-screen-md flex items-center justify-center *:text-neutral-600 bg-main-color h-16 ">
+        <BackButton />
+        <span className="text-2xl font-semibold">회원가입</span>
+      </div>
       <form
         action={dispatch}
         onSubmit={handleSubmit}

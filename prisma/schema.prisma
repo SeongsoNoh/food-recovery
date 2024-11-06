@@ -164,10 +164,11 @@ model Message {
 }
 
 model LiveStream {
-  id         Int    @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   title      String
   stream_key String
   stream_id  String
+  thumbnail  String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

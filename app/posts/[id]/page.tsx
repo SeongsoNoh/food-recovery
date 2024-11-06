@@ -142,7 +142,7 @@ export default async function PostDetail({
             <Image
               width={300}
               height={100}
-              src={post.photo}
+              src={`${post.photo}/public`}
               className="object-cover"
               alt={post.title}
             />

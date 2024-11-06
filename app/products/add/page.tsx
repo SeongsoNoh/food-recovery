@@ -5,12 +5,13 @@ import Input from "@/components/input";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { setPriority } from "os";
 import { useState } from "react";
-import { getUploadUrl, uploadProduct } from "./action";
+import { uploadProduct } from "./action";
 import { useFormState } from "react-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema, ProductType } from "./schema";
+import { getUploadUrl } from "@/lib/imgUploadUrl";
 
 const fileSchema = z.object({
   type: z.string().refine((value) => value.includes("image"), {
