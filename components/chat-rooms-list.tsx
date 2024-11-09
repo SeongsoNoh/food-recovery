@@ -135,7 +135,7 @@ export default function ChatRoomsList({
               </div>
               <div className="absolute size-12 z-20 top-5 left-2  rounded-md  border-2 border-neutral-100 overflow-hidden">
                 <Image
-                  src={`${chatRoom.product.photo}`}
+                  src={`${chatRoom.product.photo + "/avatar"}`}
                   alt="No photo"
                   fill
                   className="object-cover z-30"
@@ -176,7 +176,7 @@ export default function ChatRoomsList({
           chatRoom.Messages[0].isRead ? null : ( // <span className="text-neutral-500 text-sm">읽음</span>
             <div className="flex items-center justify-center">
               {chatRoom._count.Messages === 0 ? null : (
-                <span className="px-2.5 pt-1 pb-1 text-xs bg-main-button rounded-xl">
+                <span className="px-2.5 pt-1 pb-1 text-xs text-main-color bg-main-button rounded-xl">
                   {chatRoom._count.Messages}
                 </span>
               )}

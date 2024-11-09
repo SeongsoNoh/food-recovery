@@ -11,6 +11,7 @@ export async function getMoreProducts(page: number) {
       created_at: true,
       photo: true,
       id: true,
+      state: true,
     },
     skip: page * 1,
     take: 5,
@@ -31,6 +32,7 @@ export async function getMoreProductsLoved(page: number) {
       product: {
         select: {
           id: true,
+          state: true,
         },
       },
     },
@@ -48,6 +50,7 @@ export async function getMoreProductsLoved(page: number) {
       created_at: true,
       photo: true,
       id: true,
+      state: true,
     },
     skip: page * 1,
     take: 5,
@@ -68,6 +71,7 @@ export async function getMoreProductsSold(page: number) {
       product: {
         select: {
           id: true,
+          state: true,
         },
       },
     },
@@ -85,6 +89,7 @@ export async function getMoreProductsSold(page: number) {
       created_at: true,
       photo: true,
       id: true,
+      state: true,
     },
     skip: page * 1,
     take: 5,
@@ -104,6 +109,7 @@ export async function getMoreProductsBought(page: number) {
       product: {
         select: {
           id: true,
+          state: true,
         },
       },
     },
@@ -121,6 +127,7 @@ export async function getMoreProductsBought(page: number) {
       created_at: true,
       photo: true,
       id: true,
+      state: true,
     },
     skip: page * 1,
     take: 5,

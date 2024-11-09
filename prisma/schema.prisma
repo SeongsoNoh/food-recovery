@@ -50,6 +50,8 @@ model Product {
   price       Float
   description String
   photo       String
+  state       Int    @default(1)
+  buyerId     Int?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -80,6 +82,7 @@ model Sale {
   userId     Int
   product    Product  @relation(fields: [productId], references: [id])
   productId  Int
+  purchaseId Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -91,6 +94,7 @@ model Purchase {
   userId     Int
   product    Product  @relation(fields: [productId], references: [id])
   productId  Int
+  saleId     Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 

@@ -17,6 +17,7 @@ async function getInitialBought() {
           created_at: true,
           photo: true,
           id: true,
+          state: true,
         },
       },
     },

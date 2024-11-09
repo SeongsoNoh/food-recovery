@@ -17,6 +17,7 @@ async function getInitialSold() {
           created_at: true,
           photo: true,
           id: true,
+          state: true,
         },
       },
     },

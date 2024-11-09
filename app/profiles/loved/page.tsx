@@ -17,6 +17,7 @@ async function getInitialLikes() {
           created_at: true,
           photo: true,
           id: true,
+          state: true,
         },
       },
     },

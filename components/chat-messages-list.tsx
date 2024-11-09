@@ -141,12 +141,12 @@ export default function ChatMessagesList({
   }, [messages]);
 
   return (
-    <div className="flex flex-col justify-end">
-      <div className="py-16 px-5 flex flex-col gap-5 pb-20 border-neutral-200 rounded-3xl shadow-lg bg-white ">
+    <div className="flex flex-col h-[calc(100vh-250px)]">
+      <div className="overflow-y-auto p-5 flex-1 flex-col justify-end gap-5 border-neutral-200 rounded-3xl shadow-lg bg-white">
         {messages.map((message, index) => (
           <div
             key={message.id}
-            className={`flex gap-2 items-stretch ${
+            className={`py-2 flex gap-2 items-stretch ${
               message.userId === userId ? "justify-end" : ""
             }`}
           >
@@ -195,7 +195,7 @@ export default function ChatMessagesList({
                   message.userId === userId
                     ? "bg-main-button text-white"
                     : "bg-main-color"
-                } p-2.5 rounded-md font-light`}
+                } p-2.5 rounded-md font-normal`}
               >
                 {message.payload}
               </span>
@@ -215,9 +215,9 @@ export default function ChatMessagesList({
             )}
           </div>
         ))}
-        <div ref={bottomRef} />
+        {messages.length > 1 ? <div ref={bottomRef} /> : null}
       </div>
-      <div className="flex items-center justify-center fixed bottom-0 right-0 w-full p-5 bg-white">
+      <div className="fixed bottom-0 flex items-center justify-center right-0 w-full p-5 bg-white">
         <form className="flex relative w-full" onSubmit={onSubmit}>
           <input
             required

@@ -4,6 +4,7 @@ import { HandThumbUpIcon } from "@heroicons/react/20/solid";
 import { useOptimistic } from "react";
 import { disfavProduct, favProduct } from "@/app/products/[id]/fav";
 import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
 
 interface FavButtonProps {
   isLiked: boolean;
@@ -11,34 +12,31 @@ interface FavButtonProps {
 }
 
 export default function FavButton({ isLiked, productId }: FavButtonProps) {
-  const [state, reducerFn] = useOptimistic(
-    { isLiked },
-    (previousState, payload) => ({
-      isLiked: !previousState.isLiked,
-    })
-  );
+  const [state, reducerFn] = useOptimistic({ isLiked }, (previousState) => ({
+    isLiked: !previousState.isLiked,
+  }));
   const onClick = async () => {
     reducerFn(undefined);
-    if (isLiked) {
-      await disfavProduct(productId);
-    } else {
-      await favProduct(productId);
+    try {
+      if (isLiked) {
+        await disfavProduct(productId);
+      } else {
+        await favProduct(productId);
+      }
+    } catch (error) {
+      reducerFn(undefined);
     }
   };
 
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 text-black text-sm border border-main-button rounded-full px-3 py-1.5  transition-colors ${
-        isLiked
-          ? "bg-main-button text-main-color border-main-button"
-          : "hover:bg-sub-color"
-      }`}
+      className="flex items-center gap-2 text-main-button text-sm transition-colors"
     >
-      {state.isLiked ? (
-        <HeartIcon className="size-4" />
+      {isLiked ? (
+        <HeartSolidIcon className="size-8 text-main-button" />
       ) : (
-        <HeartIcon className="size-4" />
+        <HeartIcon className="size-8" />
       )}
     </button>
   );

@@ -29,6 +29,7 @@ async function getProduct(id: number) {
         select: {
           username: true,
           avatar: true,
+          detailAddress: true,
         },
       },
     },
@@ -41,7 +42,6 @@ const getCachedProduct = nextCache(getProduct, ["product-detail"], {
 });
 
 async function getProductTitle(id: number) {
-  console.log("title");
   const product = await db.product.findUnique({
     where: {
       id,
@@ -160,7 +160,8 @@ export default async function ProductDetail({
     redirect(`/chats/${room.id}`);
   };
   const { isLiked } = await getCachedFavStatus(product.id);
-
+  const session = await getSession();
+  const sessionId = session.id;
   return (
     <div>
       <div className="sticky top-0 bg-main-color w-full flex items-center py-4 border-b-2 justify-center ">
@@ -188,13 +189,23 @@ export default async function ProductDetail({
             <UserIcon />
           )}
         </div>
-        <div>
+        <div className="flex gap-2 items-center">
           <h3>{product.user.username}</h3>
+          <div className="p-2 text-xs text-main-button border border-main-button rounded-lg">
+            {product.user.detailAddress}
+          </div>
         </div>
         <div>{/* <h3>등급(예: 수박게임-블루베리-토마토등)</h3> */}</div>
       </div>
       <div className="p-5">
-        <h1 className="text-2xl font-semibold">{product.title}</h1>
+        <div className="flex gap-2 items-center">
+          {product.state === 2 ? (
+            <h1 className="text-xl font-semibold text-main-button">예약중</h1>
+          ) : product.state === 3 ? (
+            <h1 className="text-xl font-semibold text-neutral-400">거래완료</h1>
+          ) : null}
+          <h1 className="text-2xl font-semibold">{product.title}</h1>
+        </div>
         <p className="mt-3">{product.description}</p>
       </div>
       <div className="fixed w-full bottom-0 left-0 py-4 px-5 bg-white flex justify-between items-center border-t border-neutral-300">
@@ -221,12 +232,22 @@ export default async function ProductDetail({
 
             <DeleteButton productId={id} userId={product.userId} />
           </div>
-        ) : (
+        ) : product.state === 1 ? (
           <form action={createChatRoom}>
             <button className="bg-main-button px-5 py-2.5 rounded-md text-white font-semibold">
               채팅하기
             </button>
           </form>
+        ) : product.state === 2 && product.buyerId === sessionId ? (
+          <form action={createChatRoom}>
+            <button className="bg-main-button px-5 py-2.5 rounded-md text-white font-semibold">
+              채팅하기
+            </button>
+          </form>
+        ) : (
+          <div className="bg-neutral-500 px-5 py-2.5 rounded-md text-white font-semibold">
+            채팅하기
+          </div>
         )}
       </div>
     </div>

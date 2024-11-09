@@ -12,6 +12,7 @@ export default async function UserData() {
       },
       select: {
         id: true,
+        address: true,
         detailAddress: true,
       },
     });

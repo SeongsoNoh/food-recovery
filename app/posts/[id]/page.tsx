@@ -52,6 +52,7 @@ async function getComments(id: number) {
             id: true,
             username: true,
             avatar: true,
+            detailAddress: true,
           },
         },
       },

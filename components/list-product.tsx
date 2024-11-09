@@ -8,6 +8,7 @@ interface ListProductProps {
   created_at: Date;
   photo: string;
   id: number;
+  state: number;
 }
 export default function ListProduct({
   title,
@@ -15,6 +16,7 @@ export default function ListProduct({
   created_at,
   photo,
   id,
+  state,
 }: ListProductProps) {
   return (
     <Link
@@ -34,7 +36,18 @@ export default function ListProduct({
         <span className="text-sm text-neutral-500">
           {formatToTimeAgo(created_at.toString())}
         </span>
-        <span className="text-lg font-semibold">{formatToWon(price)}원</span>
+        <div className="flex gap-1 items-center">
+          {state === 2 ? (
+            <div className="px-2 py-1 text-white text-xs border-main-button bg-main-button rounded-md ">
+              예약중
+            </div>
+          ) : state === 3 ? (
+            <div className="px-2 py-1 text-white text-xs border-slate-700 bg-slate-700 rounded-md ">
+              거래완료
+            </div>
+          ) : null}
+          <span className="text-lg font-semibold">{formatToWon(price)}원</span>
+        </div>
         {/* <div className="flex gap-4 items-center *:flex *:gap-1 *:items-center">
           <span>
             <HandThumbUpIcon className="size-4" />0

@@ -1,4 +1,5 @@
 import db from "@/lib/db";
+import UserData from "@/lib/userData";
 import { formatToTimeAgo } from "@/lib/utils";
 import {
   ChatBubbleBottomCenterIcon,
@@ -6,8 +7,15 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
+// const myUserData = UserData();
+// console.log("data!!!", myUserData);
 async function getPosts() {
   const posts = await db.post.findMany({
+    // where:{
+    //   user:{
+    //     address:,
+    //   }
+    // },
     select: {
       id: true,
       title: true,
