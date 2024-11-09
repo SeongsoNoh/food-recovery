@@ -1,6 +1,7 @@
 "use client";
 
 import { updateProductState } from "@/app/chats/[id]/action";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface productStateProps {
@@ -58,9 +59,12 @@ export default function ProductStateButton({
         </div>
       ) : productState === 3 ? (
         product?.buyerId === sessionUserId ? (
-          <button className="bg-sub-button p-2 text-sm rounded-md font-semibold">
-            판매자 평가
-          </button>
+          <Link
+            href={`/products/assessment/${product.id}`}
+            className="bg-sub-button p-2 text-sm rounded-md "
+          >
+            <span className="text-black font-semibold">판매자 평가</span>
+          </Link>
         ) : null
       ) : null}
     </div>

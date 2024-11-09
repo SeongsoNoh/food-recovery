@@ -8,7 +8,6 @@ import { notFound } from "next/navigation";
 import { updateMessagesAsRead } from "./action";
 import TopBar from "@/components/top-bar";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import ProductStateButton from "@/components/product-state-button";
 
 async function getRoom(id: string) {

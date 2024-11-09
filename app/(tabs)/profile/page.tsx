@@ -3,15 +3,17 @@ import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { StarIcon as StarSolidIcon } from "@heroicons/react/24/solid";
 import {
-  GiftIcon,
   HeartIcon,
   MapPinIcon,
   ReceiptPercentIcon,
   RectangleGroupIcon,
   ShoppingBagIcon,
   VideoCameraIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
+import Information from "@/components/information";
 
 async function getUser() {
   const session = await getSession();
@@ -28,6 +30,46 @@ async function getUser() {
   notFound();
 }
 
+async function getRating(userId: number) {
+  const sales = await db.sale.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      assessment: true,
+    },
+  });
+
+  //assessment 평균 구하기
+  const totalAssessment = sales.reduce((sum, sale) => sum + sale.assessment, 0);
+  const averageAssessment = sales.length ? totalAssessment / sales.length : 0;
+
+  //게시글 개수
+  const postCount = sales.length;
+
+  // 평가 점수 계산
+  let ratingScore = 1; // 기본 점수는 1
+
+  if (averageAssessment >= 3 && averageAssessment < 4 && postCount >= 10) {
+    ratingScore = 2;
+  } else if (
+    averageAssessment >= 4 &&
+    averageAssessment < 4.5 &&
+    postCount >= 20
+  ) {
+    ratingScore = 3;
+  } else if (
+    averageAssessment >= 4.5 &&
+    averageAssessment < 4.8 &&
+    postCount >= 50
+  ) {
+    ratingScore = 4;
+  } else if (averageAssessment >= 4.8 && postCount >= 100) {
+    ratingScore = 5;
+  }
+  return ratingScore;
+}
+
 export default async function Profile() {
   const user = await getUser();
   const logOut = async () => {
@@ -36,6 +78,7 @@ export default async function Profile() {
     await session.destroy();
     redirect("/");
   };
+  const ratingScore = await getRating(user.id);
   return (
     <div className="px-3 flex flex-col gap-4">
       <div className="py-5 px-3 rounded-lg bg-white flex flex-col gap-5">
@@ -58,10 +101,28 @@ export default async function Profile() {
         >
           <span>프로필 수정</span>
         </Link>
-        <div className="flex flex-col gap-2">
-          <h1 className="text-xs">등급</h1>
-          <h2>토마토</h2>
-          <div className="bg-bottom-border-color p-1.5 rounded-md"></div>
+        <div className="flex flex-col gap-2 ">
+          <div className="flex gap-1 items-center">
+            <span className="text-md">푸쉐린 가이드</span>
+            <Information />
+          </div>
+          <div className="flex">
+            {[...Array(5)].map((_, index) => (
+              <span
+                key={index}
+                className={`${
+                  index < ratingScore ? "text-yellow-400" : "text-neutral-200"
+                }`}
+              >
+                {index < ratingScore ? (
+                  <StarSolidIcon className="size-7" />
+                ) : (
+                  <StarIcon className="size-7" />
+                )}
+              </span>
+            ))}
+          </div>
+          {/* <div className="bg-bottom-border-color p-1.5 rounded-md"></div> */}
         </div>
       </div>
       <div className="py-7 px-10 rounded-lg bg-white flex gap-8 justify-center text-center">

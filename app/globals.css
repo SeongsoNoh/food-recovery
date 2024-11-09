@@ -13,3 +13,8 @@
     @apply w-full bg-main-button text-white font-medium rounded-md text-center hover:bg-main-button transition-colors;
   }
 }
+
+.custom-rotate {
+  --tw-rotate: 223deg;
+  transform: rotate(var(--tw-rotate));
+}

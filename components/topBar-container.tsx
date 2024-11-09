@@ -32,7 +32,7 @@ export default function TopBarContainer({ user }: any) {
           : pathname === "/login"
           ? "로그인"
           : pathname === "/profile"
-          ? "프로필"
+          ? "마이페이지"
           : pathname.includes("chats")
           ? "채팅"
           : user.detailAddress}

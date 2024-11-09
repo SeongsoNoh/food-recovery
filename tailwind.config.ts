@@ -10,6 +10,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      zIndex: {
+        "100": "100",
+      },
+
       colors: {
         "main-color": "#F6FBF4",
         "main-button": "#0B9563",
