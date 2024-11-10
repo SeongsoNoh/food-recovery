@@ -1,5 +1,4 @@
 import ProductList from "@/components/product-list";
-import TopBar from "@/components/top-bar";
 import db from "@/lib/db";
 import { PlusCircleIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { Prisma } from "@prisma/client";
@@ -29,6 +28,7 @@ export type InitialProducts = Prisma.PromiseReturnType<
 
 export default async function Product() {
   const initialProducts = await getInitialProducts();
+
   return (
     <div>
       <ProductList initialProducts={initialProducts} />

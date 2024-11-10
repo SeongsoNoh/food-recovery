@@ -2,6 +2,7 @@ import ProductList from "@/components/product-list";
 import db from "@/lib/db";
 import { Prisma } from "@prisma/client";
 import getSession from "@/lib/session";
+import BackButton from "@/components/back-button";
 
 async function getInitialSold() {
   const session = await getSession();
@@ -35,6 +36,7 @@ export default async function Sold() {
   const initialSold = await getInitialSold();
   return (
     <div>
+      <BackButton />
       <ProductList initialProducts={initialSold} />
     </div>
   );

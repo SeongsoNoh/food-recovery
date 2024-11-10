@@ -16,9 +16,20 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { chatUnread } from "@/lib/chatUnread";
 
 export default function TabBar() {
   const pathname = usePathname();
+  const [chatLength, setChatLength] = useState<number | null>(null);
+  useEffect(() => {
+    async function fetchChatLength() {
+      const length = await chatUnread();
+      setChatLength(length);
+    }
+    fetchChatLength();
+  }, []);
+  console.log(chatLength);
   return (
     <div className="fixed bottom-0 w-full mx-auto max-w-screen-md grid grid-cols-5 border-bottom-border-color border-t px-5 py-3 *:text-neutral-600 bg-white">
       <Link href="/life" className="flex flex-col items-center gap-px">
@@ -46,6 +57,11 @@ export default function TabBar() {
         <span>홈</span>
       </Link>
       <Link href="/chat" className="flex flex-col items-center gap-px">
+        {chatLength !== null ? (
+          <div className="absolute px-1.5 py-0.5 ml-6 top-2 bg-main-button rounded-full text-white text-xs">
+            {chatLength}
+          </div>
+        ) : null}
         {pathname === "/chat" ? (
           <SolidChatIcon className="w-7 h-7" />
         ) : (

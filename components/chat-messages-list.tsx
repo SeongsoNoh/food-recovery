@@ -141,7 +141,7 @@ export default function ChatMessagesList({
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-250px)]">
+    <div className="flex flex-col h-[calc(100vh-270px)]">
       <div className="overflow-y-auto p-5 flex-1 flex-col justify-end gap-5 border-neutral-200 rounded-3xl shadow-lg bg-white">
         {messages.map((message, index) => (
           <div
@@ -226,7 +226,7 @@ export default function ChatMessagesList({
             className="bg-transparent rounded-full w-full h-10 focus:outline-none px-5 ring-2 focus:ring-4 transition ring-neutral-200 focus:ring-main-button border-none placeholder:text-neutral-400"
             type="text"
             name="message"
-            placeholder="Write a message..."
+            placeholder="메세지를 입력해주세요."
           />
           <button className="absolute right-0">
             <ArrowUpCircleIcon className="size-10 text-main-button transition-colors hover:text-main-button" />

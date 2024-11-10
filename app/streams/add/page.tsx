@@ -12,10 +12,10 @@ export default function AddStream() {
       <Input
         name="title"
         required
-        placeholder="Title or your stream."
+        placeholder="라이브 제목을 입력하세요."
         errors={state?.formErrors}
       />
-      <Button text="Start streaming" />
+      <Button text="라이브 시작하기" />
     </form>
   );
 }

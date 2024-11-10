@@ -65,7 +65,9 @@ export default function ProductStateButton({
           >
             <span className="text-black font-semibold">판매자 평가</span>
           </Link>
-        ) : null
+        ) : (
+          <span className="text-neutral-500">거래완료</span>
+        )
       ) : null}
     </div>
   );

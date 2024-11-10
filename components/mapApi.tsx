@@ -106,12 +106,12 @@ export default function MapApi() {
         </button>
       </form>
       <div id="map">
-        <button
+        {/* <button
           onClick={clickMyLocation}
           className="flex justify-center items-center absolute w-[40px] h-[35px] top-[10px] left-[110px] border-none outline outline-[0.5px] outline-white bg-white shadow-md z-10 [&>p]:hover:top-[45px] [&>p]:hover:block"
         >
           <IoMdLocate className="locateIcon" size={21} />
-        </button>
+        </button> */}
       </div>
     </div>
   );

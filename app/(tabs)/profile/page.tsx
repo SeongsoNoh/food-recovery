@@ -102,8 +102,8 @@ export default async function Profile() {
           <span>프로필 수정</span>
         </Link>
         <div className="flex flex-col gap-2 ">
-          <div className="flex gap-1 items-center">
-            <span className="text-md">푸쉐린 가이드</span>
+          <div className="flex items-center w-full">
+            <span className="text-md w-28">푸쉐린 가이드</span>
             <Information />
           </div>
           <div className="flex">
@@ -170,7 +170,7 @@ export default async function Profile() {
           className="flex gap-3 items-center text-black"
         >
           <VideoCameraIcon className="h-6" />
-          <span>내 쇼핑(라이브스트리밍)</span>
+          <span>내 라이브</span>
         </Link>
       </div>
       <div className="p-5 rounded-lg bg-white flex flex-col gap-2">

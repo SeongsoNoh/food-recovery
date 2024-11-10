@@ -9,6 +9,7 @@ import { updateMessagesAsRead } from "./action";
 import TopBar from "@/components/top-bar";
 import Image from "next/image";
 import ProductStateButton from "@/components/product-state-button";
+import BackButton from "@/components/back-button";
 
 async function getRoom(id: string) {
   const room = await db.chatRoom.findUnique({
@@ -148,9 +149,9 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
     buyer = await getBuyerId(params.id);
   }
   return (
-    <div className="px-5 min-h-screen">
-      <TopBar />
-      <div className="flex flex-col gap-3">
+    <div className=" min-h-screen ">
+      <BackButton />
+      <div className="w-full flex flex-col gap-3 border-t-2 p-5">
         <div className="p-4 rounded-3xl shadow-lg bg-white flex justify-between items-center">
           <div className="flex gap-3 items-center">
             <div className="size-12 overflow-hidden rounded-md">

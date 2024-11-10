@@ -164,10 +164,10 @@ export default async function ProductDetail({
   const sessionId = session.id;
   return (
     <div>
-      <div className="sticky top-0 bg-main-color w-full flex items-center py-4 border-b-2 justify-center ">
-        <BackButton />
+      <BackButton />
+      {/* <div className="sticky top-0 bg-main-color w-full flex items-center py-4 border-b-2 justify-center ">
         <span className="text-xl ">home</span>
-      </div>
+      </div> */}
       <div className="relative aspect-square border-b border-neutral-300">
         <Image
           className="object-cover"
@@ -197,7 +197,7 @@ export default async function ProductDetail({
         </div>
         <div>{/* <h3>등급(예: 수박게임-블루베리-토마토등)</h3> */}</div>
       </div>
-      <div className="p-5">
+      <div className="p-5 mb-24">
         <div className="flex gap-2 items-center">
           {product.state === 2 ? (
             <h1 className="text-xl font-semibold text-main-button">예약중</h1>

@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema, ProductType } from "./schema";
 import { getUploadUrl } from "@/lib/imgUploadUrl";
+import BackButton from "@/components/back-button";
 
 const fileSchema = z.object({
   type: z.string().refine((value) => value.includes("image"), {
@@ -85,7 +86,8 @@ export default function AddProduct() {
   const [state, action] = useFormState(interceptAction, null);
   return (
     <div>
-      <form action={action} className="p-5 flex flex-col gap-5">
+      <BackButton />
+      <form action={action} className="p-5 flex flex-col gap-5 border-t-2">
         <label
           htmlFor="photo"
           className="bg-white border-2 aspect-square flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"

@@ -12,15 +12,15 @@ export default function Information() {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block top-0.5 w-full">
       {/* Information Icon */}
-      <button onClick={toggleInfo} className="cursor-pointer">
+      <button onClick={toggleInfo} className="cursor-pointer -left-10">
         <InformationCircleIcon className="size-5 text-neutral-600" />
       </button>
 
       {/* 정보 창 */}
       {isVisible && (
-        <div className="absolute -top-3 left-8 w-96 bg-white border border-main-button rounded-md px-4 py-3  shadow-lg z-100">
+        <div className="absolute -top-3 left-8 bg-white border border-main-button rounded-md px-4 py-3  shadow-lg z-100">
           <div className="absolute top-3 right-full -mr-2 transform custom-rotate w-4 h-4 bg-white border-t border-r border-main-button"></div>
           <div
             className="absolute top-1 right-1 cursor-pointer"

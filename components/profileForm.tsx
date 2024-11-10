@@ -10,6 +10,7 @@ import { z } from "zod";
 import { useState } from "react";
 import { getUploadUrl } from "@/lib/imgUploadUrl";
 import { CameraIcon } from "@heroicons/react/24/solid";
+import BackButton from "./back-button";
 
 const fileSchema = z.object({
   type: z.string().refine((value) => value.includes("image"), {
@@ -80,9 +81,10 @@ export default function ProfileDetail({ userDetail }: { userDetail: User }) {
 
   return (
     <div>
-      <form action={dispatch} className="flex flex-col gap-5 mt-14 p-5">
+      <BackButton />
+      <form action={dispatch} className="flex flex-col gap-5 p-5 border-t-2">
         <div className="flex flex-col items-center w-full gap-4 p-5 rounded-xl shadow-md bg-white">
-          <h2 className="text-xl pb-3">회원정보</h2>
+          <h2 className="text-2xl font-semibold pb-3 ">회원정보</h2>
           {/* <Image
             src={preview === "" ? userDetail?.avatar! : preview}
             alt="{message.user.username}"

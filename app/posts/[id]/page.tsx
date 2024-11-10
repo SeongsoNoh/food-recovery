@@ -7,6 +7,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import LikeButton from "@/components/like-button";
 import AddComment from "@/components/add-comment";
+import BackButton from "@/components/back-button";
 
 async function getPost(id: number) {
   try {
@@ -25,6 +26,7 @@ async function getPost(id: number) {
             id: true,
             username: true,
             avatar: true,
+            detailAddress: true,
           },
         },
         _count: {
@@ -118,7 +120,8 @@ export default async function PostDetail({
   const { likeCount, isLiked } = await getCachedLikeStatus(id);
   return (
     <div className="">
-      <div className="p-5 text-black border-b-4 border-neutral-300">
+      <BackButton />
+      <div className="p-5 text-black border-b-4 border-t-2 border-neutral-300">
         <div className="flex items-center gap-2 mb-2">
           {post.user.avatar && (
             <Image
@@ -134,6 +137,9 @@ export default async function PostDetail({
             <div className="text-xs">
               <span>{formatToTimeAgo(post.created_at.toString())}</span>
             </div>
+          </div>
+          <div className="p-1.5 text-xs text-main-button border border-main-button rounded-lg">
+            {post.user.detailAddress}
           </div>
         </div>
         <div className="flex flex-col gap-2">

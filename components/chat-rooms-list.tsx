@@ -172,8 +172,9 @@ export default function ChatRoomsList({
               </div>
             </div>
           </div>
-          {chatRoom.Messages[0] === undefined ||
-          chatRoom.Messages[0].isRead ? null : ( // <span className="text-neutral-500 text-sm">읽음</span>
+          {chatRoom.Messages[0] === undefined || chatRoom.Messages[0].isRead ? (
+            <span className="text-neutral-400 text-sm">읽음</span>
+          ) : (
             <div className="flex items-center justify-center">
               {chatRoom._count.Messages === 0 ? null : (
                 <span className="px-2.5 pt-1 pb-1 text-xs text-main-color bg-main-button rounded-xl">
