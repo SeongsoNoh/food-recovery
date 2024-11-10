@@ -25,15 +25,15 @@ export default function CreateAccount() {
     }
   }
   return (
-    <div className="flex flex-col gap-10 py-6 px-4 ">
-      <div className="fixed top-0 w-full mx-auto max-w-screen-md flex items-center justify-center *:text-neutral-600 bg-main-color h-16 ">
-        <BackButton />
+    <div className="flex flex-col gap-10 px-4 ">
+      <BackButton />
+      {/* <div className="fixed top-0 w-full mx-auto max-w-screen-md flex items-center justify-center *:text-neutral-600 bg-main-color h-16 ">
         <span className="text-2xl font-semibold">회원가입</span>
-      </div>
+      </div> */}
       <form
         action={dispatch}
         onSubmit={handleSubmit}
-        className="flex flex-col gap-5 mt-14"
+        className="flex flex-col gap-5 "
       >
         <div className="flex flex-col gap-4 p-5 rounded-xl shadow-md bg-white">
           <h2 className="text-xl pb-3">계정정보</h2>

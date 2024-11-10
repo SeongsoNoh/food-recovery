@@ -19,6 +19,10 @@ export default function BackButton() {
           ? "상품"
           : pathname.includes("chats")
           ? "채팅"
+          : pathname === "/login"
+          ? "로그인"
+          : pathname === "/create-account"
+          ? "회원가입"
           : pathname.includes("posts")
           ? "동네생활"
           : pathname.includes("profiles")
