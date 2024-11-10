@@ -42,7 +42,7 @@ export default function MapApi() {
         ),
         zoom: 16,
         zoomControl: true,
-        size: { width: 600, height: 700 },
+        size: { width: 550, height: 700 },
         logoControl: false,
         mapDataControl: false,
       });
